@@ -10,6 +10,7 @@
     "https"
   ],
   "consumes": [
+    "application/x-yaml",
     "application/vnd.pfa+json",
     "application/vnd.ppfa"
   ],
@@ -72,11 +73,12 @@
         "produces": [
           "application/vnd.pfa+json",
           "application/vnd.ppfa",
+          "application/x-yaml",
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "retrieves PFA or PPFA model"
+            "description": "retrieves PFA model as JSON, YAML, or PrettyPFA"
           }
         },
         "parameters": [
@@ -90,6 +92,7 @@
       },
       "put": {
         "consumes": [
+          "application/x-yaml",
           "application/vnd.pfa+json",
           "application/vnd.ppfa"
         ],

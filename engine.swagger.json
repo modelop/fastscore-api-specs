@@ -11,13 +11,12 @@
   ],
   "consumes": [
     "application/json",
+    "application/x-yaml",
     "application/vnd.pfa+json",
     "application/vnd.ppfa"
   ],
   "produces": [
-    "application/json",
-    "application/vnd.pfa+json",
-    "application/vnd.ppfa"
+    "application/json"
   ],
   "paths": {
     "/swagger": {
@@ -41,9 +40,35 @@
         }
       }
     },
+    "/config": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "current configuration info",
+            "schema": { "$ref": "#/definitions/configuration" }
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "config",
+            "in": "body",
+            "description": "new configuration values",
+            "schema": { "$ref": "#/definitions/configuration" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "configuration updated successfully"
+          }
+        }
+      }
+    },
     "/job/model": {
       "put": {
         "consumes": [
+          "application/x-yaml",
           "application/vnd.pfa+json",
           "application/vnd.ppfa"
         ],
@@ -51,7 +76,7 @@
           {
             "name": "model",
             "in": "body",
-            "description": "a PFA model either as JSON or PPFA",
+            "description": "a PFA model either as JSON, YAML, or PPFA",
             "schema": { "type": "string" },
             "required": true
           }
@@ -86,6 +111,14 @@
     },
     "/job": {
       "post": {
+        "parameters": [
+          {
+            "name": "instances",
+            "in": "query",
+            "description": "initial number of instances for the model",
+            "type": "number"
+          }
+        ],
         "responses": {
           "200": {
             "description": "model starts successfully"
@@ -99,6 +132,38 @@
         "responses": {
           "204": {
             "description": "model stopped successfully"
+          },
+          "406": {
+            "description": "no running model"
+          }
+        }
+      }
+    },
+    "/job/scale": {
+      "post": {
+        "parameters": [
+          {
+            "name": "instances",
+            "in": "query",
+            "description": "the new number of instances for the model",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "model scaled successfully"
+          },
+          "406": {
+            "description": "no running model"
+          }
+        }
+      }
+    },
+    "/job/snapshot": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "PFAEngine snapshot as JSON object"
           },
           "406": {
             "description": "no running model"
@@ -128,9 +193,52 @@
           }
         }
       }
+    },
+    "/job/statistics": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "engine status info",
+            "schema": { "$ref": "#/definitions/performance-statistics" }
+          },
+          "406": {
+            "description": "no running model"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "204": {
+            "description": "performance counters reset"
+          }
+        }
+      }
+    },
+    "/job/memory": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "memory usage info",
+            "schema": { "$ref": "#/definitions/memory-usage" }
+          },
+          "406": {
+            "description": "no running model"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "configuration": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "param": { "type": "string", "required": true },
+          "value": { "type": "string", "required": true }
+        }
+      }
+    },
     "stream-descriptor": {
       "type": "object",
       "properties": {
@@ -171,6 +279,38 @@
             "options":       { "type": "object" }
           },
           "required": false
+        }
+      }
+    },
+    "performance-statistics": {
+      "type": "object",
+      "properties": {
+        "throughputTotalCount":     { "type": "integer" },
+        "throughputTotalNanosecs":  { "type": "integer" },
+        "instances":                { "type": "integer" }
+      }
+    },
+    "memory-usage": {
+      "type": "object",
+      "properties": {
+        "sharedCells":    { "$ref": "#/definitions/memory-report" },
+        "sharedPools":    { "$ref": "#/definitions/memory-report" },
+        "unsharedCells":  { "$ref": "#/definitions/memory-report" },
+        "unsharedPools":  { "$ref": "#/definitions/memory-report" },
+        "totalUsage":     { "type": "integer" },
+        "totalBytes":     { "type": "integer" }
+      }
+    },
+    "memory-report": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name":  { "type": "string" },
+          "usage": { "type": "integer" },
+          "bytes": { "type": "integer" },
+          "exact": { "type": "boolean" },
+          "items": { "type": "integer" }
         }
       }
     }
