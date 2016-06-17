@@ -166,9 +166,9 @@
         "connect": {
           "type": "object",
           "properties": {
-            "type": { "type": "string", "required": true },
-            "additionalProperties": true
-          }
+            "type": { "type": "string", "required": true }
+          },
+          "additionalProperties": true
         }
       }
     }

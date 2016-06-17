@@ -52,6 +52,7 @@
             "name": "model",
             "in": "body",
             "description": "a PFA model either as JSON or PPFA",
+            "schema": { "type": "string" },
             "required": true
           }
         ],
@@ -100,7 +101,7 @@
             "description": "model stopped successfully"
           },
           "406": {
-            "desciption": "no running model"
+            "description": "no running model"
           }
         }
       }
@@ -138,9 +139,9 @@
         "connect": {
           "type": "object",
           "properties": {
-            "type": { "type": "string", "required": true },
-            "additionalProperties": true
-          }
+            "type": { "type": "string", "required": true }
+          },
+          "additionalProperties": true
         }
       }
     },
