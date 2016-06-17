@@ -124,7 +124,7 @@
         ],
         "responses": {
           "201": {
-            "description": "stream added successfully"
+            "description": "stream added successfully",
             "schema": { "$ref": "#/definitions/stream-descriptor" }
           }
         }
@@ -144,7 +144,7 @@
         ],
         "responses": {
           "200": {
-            "description": "gets sample data from the stream"
+            "description": "gets sample data from the stream",
             "schema": {
               "type": "array",
               "items": { "type": "string" }

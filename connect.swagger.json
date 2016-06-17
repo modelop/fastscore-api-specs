@@ -35,7 +35,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "a list of known microservices"
+            "description": "a list of known microservices",
             "schema": {
               "type": "array",
               "items": { "$ref": "#/definitions/microservice" }

@@ -88,7 +88,7 @@
         "responses": {
           "200": {
             "description": "model starts successfully"
-          }
+          },
           "409": {
             "description": "model already running"
           }
@@ -114,12 +114,12 @@
           }
         }
       }
-    }
+    },
     "/job/output": {
       "get": {
         "responses": {
           "200": {
-            "description": "buffered outputs of the running model"
+            "description": "buffered outputs of the running model",
             "schema": {
               "type": "array",
               "items": { "type": "string" }
