@@ -1,0 +1,177 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Engine API",
+    "description": "The Engine microservice API",
+    "version": "v1.0"
+  },
+  "basePath": "/1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "application/vnd.pfa+json",
+    "application/vnd.ppfa"
+  ],
+  "produces": [
+    "application/json",
+    "application/vnd.pfa+json",
+    "application/vnd.ppfa"
+  ],
+  "paths": {
+    "/swagger": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "returns the present API specifiction"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/job/model": {
+      "put": {
+        "consumes": [
+          "application/vnd.pfa+json",
+          "application/vnd.ppfa"
+        ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "a PFA model either as JSON or PPFA",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "model set successfully"
+          }
+        }
+      }
+    },
+    "/job/stream": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "stream",
+            "in": "body",
+            "description": "a stream descriptor",
+            "schema": { "$ref": "#/definitions/stream-descriptor" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "stream descriptor set successfully"
+          }
+        }
+      }
+    },
+    "/job": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "model starts successfully"
+          }
+          "409": {
+            "description": "model already running"
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "model stopped successfully"
+          },
+          "406": {
+            "desciption": "no running model"
+          }
+        }
+      }
+    },
+    "/job/status": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "engine status info",
+            "schema": { "$ref": "#/definitions/status" }
+          }
+        }
+      }
+    }
+    "/job/output": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "buffered outputs of the running model"
+            "schema": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "stream-descriptor": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "required": true },
+        "description": { "type": "string" },
+        "connect": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "required": true },
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "numberOfInstancesRunning": { "type": "integer" },
+        "instancesRunning": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "serverOptions": { "type": "object" },
+        "pfaVersion": { "type": "integer" },
+        "pfaDocument": {
+          "type": "object",
+          "properties": {
+            "name":          { "type": "string" },  
+            "method":        { "type": "string" },  
+            "input":         { "type": "object" },  
+            "output":        { "type": "object" },  
+            "numberOfFcns":  { "type": "integer" },  
+            "numberOfCells": { "type": "integer" },  
+            "numberOfPools": { "type": "integer" },  
+            "randseed":      { "type": "integer" },  
+            "doc":           { "type": "string" },  
+            "metadata":      { "type": "object" },  
+            "options":       { "type": "object" }
+          },
+          "required": false
+        }
+      }
+    }
+  }
+}

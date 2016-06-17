@@ -1,0 +1,176 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Model Manage API",
+    "description": "The Model Manage microservice API",
+    "version": "v1.0"
+  },
+  "basePath": "/1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/vnd.pfa+json",
+    "application/vnd.ppfa"
+  ],
+  "produces": [
+    "application/vnd.pfa+json",
+    "application/vnd.ppfa",
+    "application/json"
+  ],
+  "paths": {
+    "/swagger": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "returns the present API specifiction"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/model": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "returns a list of model names (or JSON objects if metadata=1)"
+          }
+        },
+        "parameters": [
+          {
+            "name": "metadata",
+            "in": "query",
+            "type": "integer",
+            "description": "set to 1 to include metadata in the list of models"
+          }
+        ]
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "deletes all models (useful for testing/debugging)"
+          }
+        }
+      }
+    },
+    "/model/{model}": {
+      "get": {
+        "produces": [
+          "application/vnd.pfa+json",
+          "application/vnd.ppfa",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "retrieves PFA or PPFA model"
+          }
+        },
+        "parameters": [
+          {
+            "name": "metadata_only",
+            "in": "query",
+            "type": "integer",
+            "description": "set to 1 to retrieve only the model metadata"
+          }
+        ]
+      },
+      "put": {
+        "consumes": [
+          "application/vnd.pfa+json",
+          "application/vnd.ppfa"
+        ],
+        "responses": {
+          "201": {
+            "description": "model added successfully"
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "model deleted successfully"
+          }
+        }
+      }
+    },
+    "/stream/{stream}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "retrieves a stream descriptor"
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "stream added successfully"
+            "schema": { "$ref": "#/definitions/stream-descriptor" }
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "stream deleted successfully"
+          }
+        }
+      }
+    },
+    "/stream/{stream}/sample": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "gets sample data from the stream"
+            "schema": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "406": {
+            "description": "stream descriptor is invalid"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "stream-descriptor": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "required": true },
+        "description": { "type": "string" },
+        "connect": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "required": true },
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}

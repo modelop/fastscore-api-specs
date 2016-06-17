@@ -1,0 +1,61 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Connect API",
+    "description": "The Connect microservice API",
+    "version": "v1.0"
+  },
+  "basePath": "/1",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/swagger": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "returns the present API specifiction"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/connect": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "a list of known microservices"
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/microservice" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "microservice": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "required": true },
+        "ip": { "type": "string", "required": true },
+        "port": { "type": "string", "required": true },
+        "health": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}
+
