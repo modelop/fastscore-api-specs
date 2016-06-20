@@ -59,13 +59,6 @@
             "description": "set to 1 to include metadata in the list of models"
           }
         ]
-      },
-      "delete": {
-        "responses": {
-          "204": {
-            "description": "deletes all models (useful for testing/debugging)"
-          }
-        }
       }
     },
     "/model/{model}": {

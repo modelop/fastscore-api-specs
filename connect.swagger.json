@@ -31,7 +31,41 @@
         }
       }
     },
+    "/config": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "current configuration"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "config",
+            "in": "body",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "configuration set"
+          },
+          "204": {
+            "description": "configuration updated"
+          }
+        }
+      }
+    },
     "/connect": {
+      "parameters": [
+        {
+          "name": "api",
+          "in", "query",
+          "description": "select only instances of the API",
+          "schema": "string"
+        }
+      ],
       "get": {
         "responses": {
           "200": {
@@ -40,6 +74,9 @@
               "type": "array",
               "items": { "$ref": "#/definitions/microservice" }
             }
+          },
+          "406": {
+            "description": "config not set yet"
           }
         }
       }
@@ -58,4 +95,3 @@
     }
   }
 }
-
