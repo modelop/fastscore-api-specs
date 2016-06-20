@@ -206,7 +206,7 @@
           }
         }
       },
-      "post": {
+      "DELETE": {
         "responses": {
           "204": {
             "description": "performance counters reset"
