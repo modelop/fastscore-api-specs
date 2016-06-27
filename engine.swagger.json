@@ -99,7 +99,7 @@
             "name": "stream",
             "in": "body",
             "description": "a stream descriptor",
-            "schema": { "$ref": "#/definitions/stream-descriptor" },
+            "schema": { "$ref": "stream-descriptor.json" },
             "required": true
           }
         ],
@@ -219,20 +219,6 @@
         "properties": {
           "default-timeout": { "type": "string" },
           "default-pfa-version": { "type": "string" }
-        }
-      }
-    },
-    "stream-descriptor": {
-      "type": "object",
-      "properties": {
-        "name": { "type": "string", "required": true },
-        "description": { "type": "string" },
-        "connect": {
-          "type": "object",
-          "properties": {
-            "type": { "type": "string", "required": true }
-          },
-          "additionalProperties": true
         }
       }
     },
