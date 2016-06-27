@@ -16,6 +16,7 @@
     "application/vnd.ppfa"
   ],
   "produces": [
+    "text/plain",
     "application/json"
   ],
   "paths": {
@@ -110,24 +111,6 @@
       }
     },
     "/job": {
-      "post": {
-        "parameters": [
-          {
-            "name": "instances",
-            "in": "query",
-            "description": "initial number of instances for the model",
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "model starts successfully"
-          },
-          "409": {
-            "description": "model already running"
-          }
-        }
-      },
       "delete": {
         "responses": {
           "204": {
@@ -234,8 +217,8 @@
       "items": {
         "type": "object",
         "properties": {
-          "param": { "type": "string", "required": true },
-          "value": { "type": "string", "required": true }
+          "default-timeout": { "type": "string" },
+          "default-pfa-version": { "type": "string" }
         }
       }
     },
