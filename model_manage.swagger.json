@@ -76,9 +76,10 @@
         },
         "parameters": [
           {
-            "name": "metadata_only",
+            "name": "model",
             "in": "query",
             "type": "integer",
+            "required": true,
             "description": "set to 1 to retrieve only the model metadata"
           }
         ]
@@ -93,14 +94,32 @@
           "201": {
             "description": "model added successfully"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "set to 1 to retrieve only the model metadata"
+          }
+        ]
       },
       "delete": {
         "responses": {
           "204": {
             "description": "model deleted successfully"
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "set to 1 to retrieve only the model metadata"
+          }
+        ]
       }
     },
     "/stream/{stream}": {
@@ -112,7 +131,16 @@
           "200": {
             "description": "retrieves a stream descriptor"
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "the stream ID"
+          }
+        ]
       },
       "put": {
         "consumes": [
@@ -121,22 +149,49 @@
         "responses": {
           "201": {
             "description": "stream added successfully",
-            "schema": { "$ref": "stream-descriptor.json" }
+            "schema": { "$ref": "#/definitions/stream-descriptor" }
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "the stream ID"
+          }
+        ]
       },
       "delete": {
         "responses": {
           "204": {
             "description": "stream deleted successfully"
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "the stream ID"
+          }
+        ]
       }
     },
     "/stream/{stream}/sample": {
       "get": {
         "produces": [
           "application/json"
+        ],
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "the stream ID"
+          }
         ],
         "responses": {
           "200": {
@@ -149,6 +204,22 @@
           "406": {
             "description": "stream descriptor is invalid"
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "stream-descriptor": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string"},
+        "description": { "type": "string" },
+        "connect": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string" }
+          },
+          "additionalProperties": true
         }
       }
     }
