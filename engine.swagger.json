@@ -115,9 +115,6 @@
         "responses": {
           "204": {
             "description": "model stopped successfully"
-          },
-          "406": {
-            "description": "no running model"
           }
         }
       }
@@ -136,8 +133,8 @@
           "200": {
             "description": "model scaled successfully"
           },
-          "406": {
-            "description": "no running model"
+          "400": {
+            "description": "errorneous parameters"
           }
         }
       }
@@ -148,8 +145,8 @@
           "200": {
             "description": "PFAEngine snapshot as JSON object"
           },
-          "406": {
-            "description": "no running model"
+          "400": {
+            "description": "no model uploaded"
           }
         }
       }
@@ -184,7 +181,7 @@
             "description": "engine status info",
             "schema": { "$ref": "#/definitions/performance-statistics" }
           },
-          "406": {
+          "400": {
             "description": "no running model"
           }
         }
@@ -204,7 +201,7 @@
             "description": "memory usage info",
             "schema": { "$ref": "#/definitions/memory-usage" }
           },
-          "406": {
+          "400": {
             "description": "no running model"
           }
         }
