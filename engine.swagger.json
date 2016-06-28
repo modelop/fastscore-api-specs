@@ -16,7 +16,6 @@
     "application/vnd.ppfa"
   ],
   "produces": [
-    "text/plain",
     "application/json"
   ],
   "paths": {
@@ -99,7 +98,7 @@
             "name": "stream",
             "in": "body",
             "description": "a stream descriptor",
-            "schema": { "$ref": "stream-descriptor.json" },
+            "schema": { "$ref": "#/definitions/stream-descriptor" },
             "required": true
           }
         ],
@@ -111,10 +110,31 @@
       }
     },
     "/job": {
+      "post": {
+        "parameters": [
+          {
+            "name": "instances",
+            "in": "query",
+            "description": "initial number of instances for the model",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "model starts successfully"
+          },
+          "409": {
+            "description": "model already running"
+          }
+        }
+      },
       "delete": {
         "responses": {
           "204": {
             "description": "model stopped successfully"
+          },
+          "406": {
+            "description": "no running model"
           }
         }
       }
@@ -133,8 +153,8 @@
           "200": {
             "description": "model scaled successfully"
           },
-          "400": {
-            "description": "errorneous parameters"
+          "406": {
+            "description": "no running model"
           }
         }
       }
@@ -145,8 +165,8 @@
           "200": {
             "description": "PFAEngine snapshot as JSON object"
           },
-          "400": {
-            "description": "no model uploaded"
+          "406": {
+            "description": "no running model"
           }
         }
       }
@@ -181,12 +201,12 @@
             "description": "engine status info",
             "schema": { "$ref": "#/definitions/performance-statistics" }
           },
-          "400": {
+          "406": {
             "description": "no running model"
           }
         }
       },
-      "DELETE": {
+      "delete": {
         "responses": {
           "204": {
             "description": "performance counters reset"
@@ -201,7 +221,7 @@
             "description": "memory usage info",
             "schema": { "$ref": "#/definitions/memory-usage" }
           },
-          "400": {
+          "406": {
             "description": "no running model"
           }
         }
@@ -212,44 +232,57 @@
     "configuration": {
       "type": "array",
       "items": {
-        "type": "object",
+        "type": "string",
         "properties": {
-          "default-timeout": { "type": "string" },
-          "default-pfa-version": { "type": "string" }
+          "param": { "type": "string" },
+          "value": { "type": "string"}
+        }
+      }
+    },
+    "stream-descriptor": {
+      "type": "string",
+      "properties": {
+        "name": { "type": "string"},
+        "description": { "type": "string" },
+        "connect": {
+          "type": "string",
+          "properties": {
+            "type": { "type": "string"}
+          },
+          "additionalProperties": true
         }
       }
     },
     "status": {
-      "type": "object",
+      "type": "string",
       "properties": {
         "numberOfInstancesRunning": { "type": "integer" },
         "instancesRunning": {
           "type": "array",
           "items": { "type": "integer" }
         },
-        "serverOptions": { "type": "object" },
+        "serverOptions": { "type": "string" },
         "pfaVersion": { "type": "integer" },
         "pfaDocument": {
-          "type": "object",
+          "type": "string",
           "properties": {
             "name":          { "type": "string" },  
             "method":        { "type": "string" },  
-            "input":         { "type": "object" },  
-            "output":        { "type": "object" },  
+            "input":         { "type": "string" },  
+            "output":        { "type": "string" },  
             "numberOfFcns":  { "type": "integer" },  
             "numberOfCells": { "type": "integer" },  
             "numberOfPools": { "type": "integer" },  
             "randseed":      { "type": "integer" },  
             "doc":           { "type": "string" },  
-            "metadata":      { "type": "object" },  
-            "options":       { "type": "object" }
-          },
-          "required": false
+            "metadata":      { "type": "string" },  
+            "options":       { "type": "string" }
+          }
         }
       }
     },
     "performance-statistics": {
-      "type": "object",
+      "type": "string",
       "properties": {
         "throughputTotalCount":     { "type": "integer" },
         "throughputTotalNanosecs":  { "type": "integer" },
@@ -257,7 +290,7 @@
       }
     },
     "memory-usage": {
-      "type": "object",
+      "type": "string",
       "properties": {
         "sharedCells":    { "$ref": "#/definitions/memory-report" },
         "sharedPools":    { "$ref": "#/definitions/memory-report" },
@@ -270,7 +303,7 @@
     "memory-report": {
       "type": "array",
       "items": {
-        "type": "object",
+        "type": "string",
         "properties": {
           "name":  { "type": "string" },
           "usage": { "type": "integer" },
