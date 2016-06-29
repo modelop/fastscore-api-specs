@@ -111,24 +111,6 @@
       }
     },
     "/job": {
-      "post": {
-        "parameters": [
-          {
-            "name": "instances",
-            "in": "query",
-            "description": "initial number of instances for the model",
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "model starts successfully"
-          },
-          "409": {
-            "description": "model already running"
-          }
-        }
-      },
       "delete": {
         "responses": {
           "204": {
