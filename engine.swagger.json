@@ -89,7 +89,7 @@
         }
       }
     },
-    "/job/stream": {
+    "/job/stream/in": {
       "put": {
         "consumes": [
           "application/json"
@@ -105,7 +105,28 @@
         ],
         "responses": {
           "204": {
-            "description": "stream descriptor set successfully"
+            "description": "input stream descriptor set successfully"
+          }
+        }
+      }
+    },
+    "/job/stream/out": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "stream",
+            "in": "body",
+            "description": "a stream descriptor",
+            "schema": { "$ref": "stream-descriptor.json" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "output stream descriptor set successfully"
           }
         }
       }
