@@ -149,7 +149,7 @@
         "responses": {
           "201": {
             "description": "stream added successfully",
-            "schema": { "$ref": "#/definitions/stream-descriptor" }
+            "schema": { "$ref": "stream-descriptor.json" }
           }
         },
          "parameters": [
@@ -204,22 +204,6 @@
           "406": {
             "description": "stream descriptor is invalid"
           }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "stream-descriptor": {
-      "type": "object",
-      "properties": {
-        "name": { "type": "string"},
-        "description": { "type": "string" },
-        "connect": {
-          "type": "object",
-          "properties": {
-            "type": { "type": "string" }
-          },
-          "additionalProperties": true
         }
       }
     }
