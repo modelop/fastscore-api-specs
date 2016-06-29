@@ -232,22 +232,8 @@
       "items": {
         "type": "string",
         "properties": {
-          "param": { "type": "string" },
-          "value": { "type": "string"}
-        }
-      }
-    },
-    "stream-descriptor": {
-      "type": "string",
-      "properties": {
-        "name": { "type": "string"},
-        "description": { "type": "string" },
-        "connect": {
-          "type": "string",
-          "properties": {
-            "type": { "type": "string"}
-          },
-          "additionalProperties": true
+          "default-timeout": { "type": "string" },
+          "default-pfa-version": { "type": "string" }
         }
       }
     },
