@@ -16,6 +16,7 @@
     "application/vnd.ppfa"
   ],
   "produces": [
+    "text/plain",
     "application/json"
   ],
   "paths": {
@@ -98,7 +99,7 @@
             "name": "stream",
             "in": "body",
             "description": "a stream descriptor",
-            "schema": { "$ref": "#/definitions/stream-descriptor" },
+            "schema": { "$ref": "stream-descriptor.json" },
             "required": true
           }
         ],
@@ -132,9 +133,6 @@
         "responses": {
           "204": {
             "description": "model stopped successfully"
-          },
-          "406": {
-            "description": "no running model"
           }
         }
       }
@@ -153,8 +151,8 @@
           "200": {
             "description": "model scaled successfully"
           },
-          "406": {
-            "description": "no running model"
+          "400": {
+            "description": "erroneous parameters"
           }
         }
       }
@@ -165,8 +163,8 @@
           "200": {
             "description": "PFAEngine snapshot as JSON object"
           },
-          "406": {
-            "description": "no running model"
+          "400": {
+            "description": "no model uploaded"
           }
         }
       }
@@ -201,7 +199,7 @@
             "description": "engine status info",
             "schema": { "$ref": "#/definitions/performance-statistics" }
           },
-          "406": {
+          "400": {
             "description": "no running model"
           }
         }
@@ -221,7 +219,7 @@
             "description": "memory usage info",
             "schema": { "$ref": "#/definitions/memory-usage" }
           },
-          "406": {
+          "400": {
             "description": "no running model"
           }
         }
