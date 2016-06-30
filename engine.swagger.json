@@ -212,7 +212,7 @@
     "configuration": {
       "type": "array",
       "items": {
-        "type": "string",
+        "type": "object",
         "properties": {
           "default-timeout": { "type": "string" },
           "default-pfa-version": { "type": "string" }
@@ -220,35 +220,35 @@
       }
     },
     "status": {
-      "type": "string",
+      "type": "object",
       "properties": {
         "numberOfInstancesRunning": { "type": "integer" },
         "instancesRunning": {
           "type": "array",
           "items": { "type": "integer" }
         },
-        "serverOptions": { "type": "string" },
+        "serverOptions": { "type": "object" },
         "pfaVersion": { "type": "integer" },
         "pfaDocument": {
-          "type": "string",
+          "type": "object",
           "properties": {
             "name":          { "type": "string" },  
             "method":        { "type": "string" },  
-            "input":         { "type": "string" },  
-            "output":        { "type": "string" },  
+            "input":         { "type": "object" },  
+            "output":        { "type": "object" },  
             "numberOfFcns":  { "type": "integer" },  
             "numberOfCells": { "type": "integer" },  
             "numberOfPools": { "type": "integer" },  
             "randseed":      { "type": "integer" },  
             "doc":           { "type": "string" },  
-            "metadata":      { "type": "string" },  
-            "options":       { "type": "string" }
+            "metadata":      { "type": "object" },  
+            "options":       { "type": "object" }
           }
         }
       }
     },
     "performance-statistics": {
-      "type": "string",
+      "type": "object",
       "properties": {
         "throughputTotalCount":     { "type": "integer" },
         "throughputTotalNanosecs":  { "type": "integer" },
@@ -256,7 +256,7 @@
       }
     },
     "memory-usage": {
-      "type": "string",
+      "type": "object",
       "properties": {
         "sharedCells":    { "$ref": "#/definitions/memory-report" },
         "sharedPools":    { "$ref": "#/definitions/memory-report" },
@@ -269,7 +269,7 @@
     "memory-report": {
       "type": "array",
       "items": {
-        "type": "string",
+        "type": "object",
         "properties": {
           "name":  { "type": "string" },
           "usage": { "type": "integer" },
