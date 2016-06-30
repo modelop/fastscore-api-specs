@@ -134,7 +134,7 @@
             "description": "model scaled successfully"
           },
           "400": {
-            "description": "errorneous parameters"
+            "description": "erroneous parameters"
           }
         }
       }
@@ -186,7 +186,7 @@
           }
         }
       },
-      "DELETE": {
+      "delete": {
         "responses": {
           "204": {
             "description": "performance counters reset"
@@ -212,7 +212,7 @@
     "configuration": {
       "type": "array",
       "items": {
-        "type": "object",
+        "type": "string",
         "properties": {
           "default-timeout": { "type": "string" },
           "default-pfa-version": { "type": "string" }
@@ -220,36 +220,35 @@
       }
     },
     "status": {
-      "type": "object",
+      "type": "string",
       "properties": {
         "numberOfInstancesRunning": { "type": "integer" },
         "instancesRunning": {
           "type": "array",
           "items": { "type": "integer" }
         },
-        "serverOptions": { "type": "object" },
+        "serverOptions": { "type": "string" },
         "pfaVersion": { "type": "integer" },
         "pfaDocument": {
-          "type": "object",
+          "type": "string",
           "properties": {
             "name":          { "type": "string" },  
             "method":        { "type": "string" },  
-            "input":         { "type": "object" },  
-            "output":        { "type": "object" },  
+            "input":         { "type": "string" },  
+            "output":        { "type": "string" },  
             "numberOfFcns":  { "type": "integer" },  
             "numberOfCells": { "type": "integer" },  
             "numberOfPools": { "type": "integer" },  
             "randseed":      { "type": "integer" },  
             "doc":           { "type": "string" },  
-            "metadata":      { "type": "object" },  
-            "options":       { "type": "object" }
-          },
-          "required": false
+            "metadata":      { "type": "string" },  
+            "options":       { "type": "string" }
+          }
         }
       }
     },
     "performance-statistics": {
-      "type": "object",
+      "type": "string",
       "properties": {
         "throughputTotalCount":     { "type": "integer" },
         "throughputTotalNanosecs":  { "type": "integer" },
@@ -257,7 +256,7 @@
       }
     },
     "memory-usage": {
-      "type": "object",
+      "type": "string",
       "properties": {
         "sharedCells":    { "$ref": "#/definitions/memory-report" },
         "sharedPools":    { "$ref": "#/definitions/memory-report" },
@@ -270,7 +269,7 @@
     "memory-report": {
       "type": "array",
       "items": {
-        "type": "object",
+        "type": "string",
         "properties": {
           "name":  { "type": "string" },
           "usage": { "type": "integer" },
