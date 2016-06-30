@@ -291,8 +291,7 @@
             "doc":           { "type": "string" },  
             "metadata":      { "type": "object" },  
             "options":       { "type": "object" }
-          },
-          "required": false
+          }
         }
       }
     },
