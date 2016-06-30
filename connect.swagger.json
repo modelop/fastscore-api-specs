@@ -60,10 +60,10 @@
     "/connect": {
       "parameters": [
         {
-          "name": "api",
-          "in", "query",
+          "name": "connect",
+          "in": "body",
           "description": "select only instances of the API",
-          "schema": "string"
+          "schema": {"type": "string" }
         }
       ],
       "get": {
@@ -86,9 +86,9 @@
     "microservice": {
       "type": "object",
       "properties": {
-        "name": { "type": "string", "required": true },
-        "ip": { "type": "string", "required": true },
-        "port": { "type": "string", "required": true },
+        "name": { "type": "string"},
+        "ip": { "type": "string"},
+        "port": { "type": "string"},
         "health": { "type": "string" }
       },
       "additionalProperties": true
