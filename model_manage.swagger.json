@@ -78,7 +78,7 @@
           {
             "name": "metadata_only",
             "in": "query",
-            "type": "integer",
+            "type": "string",
             "required": true,
             "description": "set to 1 to retrieve only the model metadata"
           }
@@ -99,7 +99,7 @@
           {
             "name": "metadata_only",
             "in": "query",
-            "type": "integer",
+            "type": "string",
             "required": true,
             "description": "set to 1 to retrieve only the model metadata"
           }
@@ -115,7 +115,7 @@
           {
             "name": "metadata_only",
             "in": "query",
-            "type": "integer",
+            "type": "string",
             "required": true,
             "description": "set to 1 to retrieve only the model metadata"
           }
@@ -136,7 +136,7 @@
           {
             "name": "stream",
             "in": "query",
-            "type": "integer",
+            "type": "string",
             "required": true,
             "description": "the stream ID"
           }
@@ -156,7 +156,7 @@
           {
             "name": "stream",
             "in": "query",
-            "type": "integer",
+            "type": "string",
             "required": true,
             "description": "the stream ID"
           }
@@ -172,7 +172,7 @@
           {
             "name": "stream",
             "in": "query",
-            "type": "integer",
+            "type": "string",
             "required": true,
             "description": "the stream ID"
           }
@@ -188,7 +188,7 @@
           {
             "name": "stream",
             "in": "query",
-            "type": "integer",
+            "type": "string",
             "required": true,
             "description": "the stream ID"
           }
