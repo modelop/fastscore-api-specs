@@ -141,6 +141,13 @@
       }
     },
     "/job/loop": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "the current looping flag"
+          }
+        }
+      },
       "post": {
         "parameters": [
           {
