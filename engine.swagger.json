@@ -181,7 +181,7 @@
             "description": "model scaled successfully"
           },
           "400": {
-            "description": "errorneous parameters"
+            "description": "erroneous parameters"
           }
         }
       }
@@ -233,7 +233,7 @@
           }
         }
       },
-      "DELETE": {
+      "delete": {
         "responses": {
           "204": {
             "description": "performance counters reset"
