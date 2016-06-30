@@ -164,6 +164,7 @@
           "400": {
             "description": "input stream does not support looping"
           }
+        }
       }
     },
     "/job/scale": {
@@ -290,8 +291,7 @@
             "doc":           { "type": "string" },  
             "metadata":      { "type": "object" },  
             "options":       { "type": "object" }
-          },
-          "required": false
+          }
         }
       }
     },
