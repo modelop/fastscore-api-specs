@@ -89,7 +89,7 @@
         }
       }
     },
-    "/job/stream": {
+    "/job/stream/in": {
       "put": {
         "consumes": [
           "application/json"
@@ -105,7 +105,28 @@
         ],
         "responses": {
           "204": {
-            "description": "stream descriptor set successfully"
+            "description": "input stream descriptor set successfully"
+          }
+        }
+      }
+    },
+    "/job/stream/out": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "stream",
+            "in": "body",
+            "description": "a stream descriptor",
+            "schema": { "$ref": "stream-descriptor.json" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "output stream descriptor set successfully"
           }
         }
       }
@@ -117,6 +138,32 @@
             "description": "model stopped successfully"
           }
         }
+      }
+    },
+    "/job/loop": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "the current looping flag"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "onoff",
+            "in": "body",
+            "description": "an input stream looping flag",
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "looping flag changed"
+          },
+          "400": {
+            "description": "input stream does not support looping"
+          }
       }
     },
     "/job/scale": {
@@ -243,7 +290,8 @@
             "doc":           { "type": "string" },  
             "metadata":      { "type": "object" },  
             "options":       { "type": "object" }
-          }
+          },
+          "required": false
         }
       }
     },
