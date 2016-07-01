@@ -78,7 +78,8 @@
           {
             "name": "metadata_only",
             "in": "query",
-            "type": "integer",
+            "type": "string",
+            "required": true,
             "description": "set to 1 to retrieve only the model metadata"
           }
         ]
@@ -93,14 +94,32 @@
           "201": {
             "description": "model added successfully"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "metadata_only",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "set to 1 to retrieve only the model metadata"
+          }
+        ]
       },
       "delete": {
         "responses": {
           "204": {
             "description": "model deleted successfully"
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "metadata_only",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "set to 1 to retrieve only the model metadata"
+          }
+        ]
       }
     },
     "/stream/{stream}": {
@@ -112,7 +131,16 @@
           "200": {
             "description": "retrieves a stream descriptor"
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "the stream ID"
+          }
+        ]
       },
       "put": {
         "consumes": [
@@ -123,20 +151,47 @@
             "description": "stream added successfully",
             "schema": { "$ref": "stream-descriptor.json" }
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "the stream ID"
+          }
+        ]
       },
       "delete": {
         "responses": {
           "204": {
             "description": "stream deleted successfully"
           }
-        }
+        },
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "the stream ID"
+          }
+        ]
       }
     },
     "/stream/{stream}/sample": {
       "get": {
         "produces": [
           "application/json"
+        ],
+         "parameters": [
+          {
+            "name": "stream",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "the stream ID"
+          }
         ],
         "responses": {
           "200": {
