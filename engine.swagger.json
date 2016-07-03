@@ -66,6 +66,35 @@
         }
       }
     },
+    "/stream/sample": {
+      "get": {
+        "parameters": [
+          {
+            "name": "stream",
+            "in": "body",
+            "description": "a stream descriptor to get data sample from",
+            "schema": { "$ref": "stream-descriptor.json" },
+            "required": true
+          },
+          {
+            "name": "n",
+            "in": "query",
+            "description": "a number of data items to get from the stream",
+            "type": "integer",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a sample data from the stream",
+            "schema": { "type": "array" }
+          },
+          "400": {
+            "description": "the stream descriptor is invalid"
+          }
+        }
+      }
+    },
     "/job/model": {
       "put": {
         "consumes": [
