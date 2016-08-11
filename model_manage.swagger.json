@@ -55,15 +55,15 @@
         ],
         "responses": {
           "200": {
-            "description": "returns a list of model names (or JSON objects if metadata=1)"
+            "description": "returns a list of model names (or JSON objects if 'i' is set)"
           }
         },
         "parameters": [
           {
-            "name": "metadata",
+            "name": "i",
             "in": "query",
-            "type": "integer",
-            "description": "set to 1 to include metadata in the list of models"
+            "type": "string",
+            "description": "a comma-separated list of fields (metadata, type, attachments)"
           }
         ]
       }
@@ -192,6 +192,18 @@
         }
       }
     },
+    "/stream": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "retrieves a the list of stream descriptors"
+          }
+        }
+      }
+    },
     "/stream/{stream}": {
       "parameters": [
         {
@@ -227,34 +239,6 @@
         "responses": {
           "204": {
             "description": "stream deleted successfully"
-          }
-        }
-      }
-    },
-    "/stream/{stream}/sample": {
-      "parameters": [
-        {
-          "name": "stream",
-          "in": "path",
-          "type": "string",
-          "required": true,
-          "description": "the stream ID"
-        }
-      ],
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "gets sample data from the stream",
-            "schema": {
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          },
-          "406": {
-            "description": "stream descriptor is invalid"
           }
         }
       }

@@ -58,15 +58,7 @@
       }
     },
     "/connect": {
-      "parameters": [
-        {
-          "name": "connect",
-          "in": "body",
-          "description": "select only instances of the API",
-          "schema": {"type": "string" }
-        }
-      ],
-      "get": {
+     "get": {
         "responses": {
           "200": {
             "description": "a list of known microservices",
@@ -78,7 +70,15 @@
           "406": {
             "description": "config not set yet"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "api",
+            "in": "query",
+            "description": "select only instances of this API",
+            "schema": {"type": "string" }
+          }
+        ]
       }
     }
   },
