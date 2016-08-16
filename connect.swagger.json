@@ -73,9 +73,39 @@
         },
         "parameters": [
           {
+            "name": "name",
+            "in": "query",
+            "description": "select instances with this name",
+            "schema": {"type": "string" }
+          },
+          {
             "name": "api",
             "in": "query",
-            "description": "select only instances of this API",
+            "description": "select instances of this API",
+            "schema": {"type": "string" }
+          },
+          {
+            "name": "host",
+            "in": "query",
+            "description": "select instances on this host",
+            "schema": {"type": "string" }
+          },
+          {
+            "name": "port",
+            "in": "query",
+            "description": "select instances on this port",
+            "schema": {"type": "integer" }
+          },
+          {
+            "name": "health",
+            "in": "query",
+            "description": "select instances with this health status",
+            "schema": {"type": "string" }
+          },
+          {
+            "name": "return",
+            "in": "query",
+            "description": "a comma-separated list of fields to include",
             "schema": {"type": "string" }
           }
         ]

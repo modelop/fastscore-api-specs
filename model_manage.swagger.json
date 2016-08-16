@@ -60,7 +60,7 @@
         },
         "parameters": [
           {
-            "name": "i",
+            "name": "return",
             "in": "query",
             "type": "string",
             "description": "a comma-separated list of fields (metadata, type, attachments)"
