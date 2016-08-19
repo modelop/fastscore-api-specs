@@ -1,4 +1,4 @@
-{
+
   "swagger": "2.0",
   "info": {
     "title": "Engine API",
@@ -40,31 +40,6 @@
         "responses": {
           "200": {
             "description": "ok"
-          }
-        }
-      }
-    },
-    "/config": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "current configuration info",
-            "schema": { "$ref": "#/definitions/configuration" }
-          }
-        }
-      },
-      "post": {
-        "parameters": [
-          {
-            "name": "config",
-            "in": "body",
-            "description": "new configuration values",
-            "schema": { "$ref": "#/definitions/configuration" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "configuration updated successfully"
           }
         }
       }
@@ -180,7 +155,7 @@
       "post": {
         "parameters": [
           {
-            "name": "instances",
+            "name": "n",
             "in": "query",
             "description": "the new number of instances for the model",
             "type": "number"
@@ -196,20 +171,16 @@
         }
       }
     },
-    "/job/snapshot": {
-      "post": {
-        "responses": {
-          "200": {
-            "description": "PFAEngine snapshot as JSON object"
-          },
-          "400": {
-            "description": "no model uploaded"
-          }
-        }
-      }
-    },
     "/job/status": {
       "get": {
+        "parameters": [
+          {
+            "name": "return",
+            "in": "query",
+            "description": "a comma-separated list of field names to return (input, output, model, jets)",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "engine status info",
@@ -230,109 +201,54 @@
           }
         }
       }
-    },
-    "/job/statistics": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "engine status info",
-            "schema": { "$ref": "#/definitions/performance-statistics" }
-          },
-          "400": {
-            "description": "no running model"
-          }
-        }
-      },
-      "delete": {
-        "responses": {
-          "204": {
-            "description": "performance counters reset"
-          }
-        }
-      }
-    },
-    "/job/memory": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "memory usage info",
-            "schema": { "$ref": "#/definitions/memory-usage" }
-          },
-          "400": {
-            "description": "no running model"
-          }
-        }
-      }
     }
   },
   "definitions": {
-    "configuration": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "default-timeout": { "type": "string" },
-          "default-pfa-version": { "type": "string" }
-        }
-      }
-    },
     "status": {
       "type": "object",
       "properties": {
-        "numberOfInstancesRunning": { "type": "integer" },
-        "instancesRunning": {
-          "type": "array",
-          "items": { "type": "integer" }
-        },
-        "serverOptions": { "type": "object" },
-        "pfaVersion": { "type": "integer" },
-        "pfaDocument": {
+        "input": {
           "type": "object",
           "properties": {
-            "name":          { "type": "string" },  
-            "method":        { "type": "string" },  
-            "input":         { "type": "object" },  
-            "output":        { "type": "object" },  
-            "numberOfFcns":  { "type": "integer" },  
-            "numberOfCells": { "type": "integer" },  
-            "numberOfPools": { "type": "integer" },  
-            "randseed":      { "type": "integer" },  
-            "doc":           { "type": "string" },  
-            "metadata":      { "type": "object" },  
-            "options":       { "type": "object" }
+            "descriptor": { "$ref": "stream-descriptor.json" },
+            "total_records": { "type": "integer" },
+            "total_bytes": { "type": "integer" },
+            "eof": { "type": "boolean" }
           }
-        }
-      }
-    },
-    "performance-statistics": {
-      "type": "object",
-      "properties": {
-        "throughputTotalCount":     { "type": "integer" },
-        "throughputTotalNanosecs":  { "type": "integer" },
-        "instances":                { "type": "integer" }
-      }
-    },
-    "memory-usage": {
-      "type": "object",
-      "properties": {
-        "sharedCells":    { "$ref": "#/definitions/memory-report" },
-        "sharedPools":    { "$ref": "#/definitions/memory-report" },
-        "unsharedCells":  { "$ref": "#/definitions/memory-report" },
-        "unsharedPools":  { "$ref": "#/definitions/memory-report" },
-        "totalUsage":     { "type": "integer" },
-        "totalBytes":     { "type": "integer" }
-      }
-    },
-    "memory-report": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name":  { "type": "string" },
-          "usage": { "type": "integer" },
-          "bytes": { "type": "integer" },
-          "exact": { "type": "boolean" },
-          "items": { "type": "integer" }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "descriptor": { "$ref": "stream-descriptor.json" },
+            "total_records": { "type": "integer" },
+            "total_bytes": { "type": "integer" }
+          }
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string" },
+            "source": { "type": "string" },
+            "attachments": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "jets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": { "type": "integer" },
+              "sandbox": { "type": "string" },
+              "total_consumed": { "type": "integer" },
+              "total_produced": { "type": "integer" },
+              "run_time": { "type": "integer" },
+              "memoory": { "type": "integer" },
+              "busy": { "type": "boolean" }
+            }
+          }
         }
       }
     }
