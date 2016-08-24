@@ -39,7 +39,13 @@
       "get": {
         "responses": {
           "200": {
-            "description": "ok"
+            "description": "ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": "string"
+              }
+            }
           }
         }
       }
