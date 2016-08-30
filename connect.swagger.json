@@ -73,7 +73,7 @@
               "items": { "$ref": "#/definitions/microservice" }
             }
           },
-          "406": {
+          "403": {
             "description": "config not set yet"
           }
         },
