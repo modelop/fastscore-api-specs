@@ -161,8 +161,8 @@
       "post": {
         "parameters": [
           {
-            "name": "n",
-            "in": "query",
+            "name": "factor",
+            "in": "body",
             "description": "the new number of instances for the model",
             "type": "number"
           }
