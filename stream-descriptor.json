@@ -1,20 +1,3 @@
 "stream-descriptor": {
-  "type": "object",
-  "additionalProperties": true,
-  "properties": {
-    "name": { "type": "string" },
-    "description": { "type": "string" },
-    "type": { "type": "string", "required": true },
-    "connect": {
-      "type": "object",
-      "required": true,
-      "additionalProperties": true,
-      "properties": {
-        "path": { "type": "string" },
-        "url": { "type": "string" },
-        "bootstrap-servers": { "type": "string" },
-        "topic": { "type": "string" }
-      }
-    }
-  }
+  "todo": "See FastScore Stream descriptors v1.2"
 }

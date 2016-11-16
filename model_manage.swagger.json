@@ -248,6 +248,57 @@
           }
         }
       }
+    },
+    "/schema": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "retrieves a the list of schemas"
+          }
+        }
+      }
+    },
+    "/schema/{schema}": {
+      "parameters": [
+        {
+          "name": "schema",
+          "in": "path",
+          "type": "string",
+          "required": true,
+          "description": "the unique name of the schema"
+        }
+      ],
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "retrieves a schema"
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "schema added successfully",
+            "schema": { "$ref": "avro-schema.json" }
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "schema deleted successfully"
+          }
+        }
+      }
     }
   }
 }
