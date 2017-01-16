@@ -1,0 +1,94 @@
+swagger: 2.0
+
+##
+## FastScore Connect API
+##
+
+info:
+  title: FastScore Connect API
+  version: "1.3"
+
+paths:
+  /1/swagger:
+    get:
+      operationId: swagger_get
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Returns the present API specification
+
+  /1/health:
+    get:
+      operationId: health_get
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Indicates that the service is healthy
+          schema:
+            $ref: ./types.yaml#/HealthInfo
+
+  /1/config:
+    put:
+      operationId: config_put
+      consumes:
+        - application/yaml
+        - application/json
+      responses:
+        204: { description: The configuration updated successfully }
+        400: { description: Malformed YAML/JSON }
+
+    get:
+      operationId: config_get
+      parameters:
+        - name: q
+          description: Request only the named section
+          type: string
+          in: query
+      produces:
+        - application/yaml
+        - application/json
+        - text/plain
+      responses:
+        200: { description: Return the (section of the) current configuration }
+        404: { description: The configuration not set or section missing }
+
+  /1/connect:
+    get:
+      operationId: connect_get
+      parameters:
+        - name: name
+          description: Return info for the named service only
+          type: string
+          in: query
+        - name: api
+          description: Return only services providing the named API
+          type: string
+          in: query
+        - name: host
+          description: Return only services running on the named host
+          type: string
+          in: query
+        - name: port
+          description: Return only services that use this port
+          type: integer
+          in: query
+        - name: release
+          description: Return only services that run the specific release
+          type: string
+          in: query
+        - name: health
+          description: Return only services with the given health status
+          type: string
+        - name: return
+          description: A comma-separated list of field to return
+          type: string
+          in: query
+      produces:
+        - application/json
+        - text/plain
+      responses:
+        200: { description: The information about the FastScore fleet }
+        403: { description: The configuration not set yet }
+

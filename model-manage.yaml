@@ -1,0 +1,147 @@
+swagger: 2.0
+
+##
+## FastScore Model Manage API
+##
+
+info:
+  title: FastScore Model Manage API
+  version: "1.3"
+
+paths:
+  /1/swagger:
+    get:
+      operationId: swagger_get
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Returns the present API specification
+
+  /1/health:
+    get:
+      operationId: health_get
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Indicates that the service is healthy
+          schema:
+            $ref: ./types.yaml#/HealthInfo
+
+  /1/model:
+    get:
+      operationId: model_list
+      parameters:
+        - name: return
+          description: A comma-separated list of fields to return
+          type: string
+          in: query
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Returns a list of model names or model info objects
+          schema:
+            type: array
+            items:
+              type: string
+##                  ^
+## GET /1/model may also return an array of objects of ModelInfo type.
+## Unfortunately, Swagger does not support anyOf specifications.
+##
+        403:
+          description: "Invalid parameter provided"
+
+  /1/model/{model}:
+    parameters:
+      - name: model
+        description: The name of the model to retrieve
+        type: string
+        in: path
+    get:
+      operationId: model_get
+      produces:
+        - application/vnd.fastscore.model-pfa+json
+        - application/vnd.fastscore.model-pfa-json
+        - application/vnd.fastscore.model-pfa-yaml
+        - application/vnd.fastscore.model-pfa-pretty
+        - application/vnd.fastscore.model-python
+        - application/vnd.fastscore.model-python2
+        - application/vnd.fastscore.model-python3
+        - application/vnd.fastscore.model-r
+        - application/vnd.fastscore.model-c
+        - application/vnd.fastscore.model-java
+        - application/vnd.fastscore.model-scala
+        - application/vnd.fastscore.model-erlang
+      responses:
+        200: { description: Returns the source code of the requested model }
+        404: { description: Model not found }
+        
+    put:
+      operationId: model_add
+      consumes:
+        - application/vnd.fastscore.model-pfa+json
+        - application/vnd.fastscore.model-pfa-json
+        - application/vnd.fastscore.model-pfa-yaml
+        - application/vnd.fastscore.model-pfa-pretty
+        - application/vnd.fastscore.model-python
+        - application/vnd.fastscore.model-python2
+        - application/vnd.fastscore.model-python3
+        - application/vnd.fastscore.model-r
+        - application/vnd.fastscore.model-c
+        - application/vnd.fastscore.model-java
+        - application/vnd.fastscore.model-scala
+        - application/vnd.fastscore.model-erlang
+        ## OBSOLETE - DO NOT USE
+        - application/vnd.pfa+json
+        - application/json
+        - application/vnd.ppfa
+        - application/x-yaml
+        - application/x-r
+        - application/x-python
+        - application/x-python2
+        - application/x-python3
+      responses:
+        201: { description: The model successfully added }
+        204: { description: The model successfully updated }
+
+    delete:
+      operationId: model_delete
+      responses:
+        204: { description: The model successfully deleted }
+        404: { description: Model not found }
+
+##  /1/model/:model/attachment
+##    TODO
+##
+##  /1/model/:model/attachment/:attachment
+##    TODO
+##
+##  /1/schema:
+##    TODO
+##
+##  /1/schema/:schema:
+##    TODO
+##
+##  /1/stream:
+##    TODO
+##
+##  /1/stream/:stream:
+##    TODO
+##
+##  /1/control/sensor:
+##    TODO
+##
+##  /1/control/sensor/available:
+##    TODO
+##
+##  /1/control/sensor/:id:
+##    TODO
+##
+##  /1/sensor:
+##    TODO
+##
+##  /1/sensor/:sensor:
+##    TODO
+
