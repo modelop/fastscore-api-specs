@@ -192,7 +192,39 @@ paths:
       responses:
         204: { description: Statistics counters reset successfully }
 
-##  /1/job/sample/cpu:
-##  /1/job/input:
-##  /1/debug/output:
+  /1/job/sample/cpu:
+    post:
+      operationId: job_sample_cpu
+      produces:
+        - application/json
+      parameters:
+        - name: duration
+          description: The number of seconds to sample CPU usage for
+          type: integer
+          in: query
+      responses:
+        200:
+          description: CPU usage data collected successfully
+          schema: { $ref: ./types.yaml#/CpuUsageInfo }
+        403: { description: Invalid parameter }
+
+  /1/job/input:
+    post:
+      operationId: job_input
+      responses:
+        200: { description: The batch processed successfully }
+        400: { description: Non-pigging transport or timeout }
+
+  /1/debug/output:
+    get:
+      operationId: scoop_debug_output
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Retrieves the output of the output debug transport
+          schema:
+            type: array
+            items:
+              type: string
 

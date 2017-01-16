@@ -58,3 +58,37 @@ StatusInfo:
           memory: { type: integer }
           busy: { type: boolean }
 
+CpuUsageInfo:
+  type: object
+  properties:
+    duration:       { type: number }
+    input_bytes:    { type: integer }
+    input_records:  { type: integer }
+    output_bytes:   { type: integer }
+    output_records: { type: integer }
+    user_time:      { type: number }
+    kernel_time:    { type: number }
+    op_times:
+      type: array
+      items:
+        type: object
+        properties:
+          unwrap_envelope:       { type: number }
+          unwrap_envelope_n:     { type: number }
+          wrap_envelope:         { type: number }
+          wrap_envelope_n:       { type: number }
+          decode_input_record:   { type: number }
+          decode_input_record_n: { type: number }
+          type_check_input:      { type: number }
+          type_check_input_n:    { type: number }
+    jets:
+      type: array
+      items:
+        type: object
+        properties:
+          input_records:  { type: integer }
+          output_records: { type: integer }
+          user_time:      { type: number }
+          kernel_time:    { type: number }
+          model_time:     { type: number }
+
