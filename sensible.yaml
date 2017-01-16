@@ -1,0 +1,88 @@
+
+##
+## Sensor control API (common to all services)
+##
+
+list-all:
+  get:
+    operationId: sensible_list
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Returns the list of attached sensors
+        schema:
+          type: object
+          required:
+            - id
+            - tap
+            - active
+          properties:
+            - name: id
+              type: integer
+            - name: tap
+              type: string
+            - name: active
+              type: boolean
+
+list-available:
+  get:
+    operationId: sensible_list_available
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Returns the list of tapping points
+        schema:
+          type: array
+          items:
+            type: string
+  post:
+    operationId: sensible_attach
+    consumes:
+      - application/json
+    produces:
+      - application/json
+      - text/plain
+    responses:
+      200:
+        description: The sensor attaches successfully
+        schema:
+          type: object
+          properties:
+            - name: id
+              description: The identifier of the sensor connection
+              type: integer
+      400: { description: The sensor descriptor is invalid }
+
+tap-control:
+  parameters:
+    - name: id
+      description: The identifier of the sensor connection
+      type: integer
+      in: path
+      required: true
+  get:
+    operationId: sensible_describe
+    produces:
+      - application/json
+      - text/plain
+    responses:
+      200:
+        description: Returns the information about the sensor connection
+        schema:
+          type: object
+          properties:
+            - name: id
+              type: integer
+            - name: tap
+              type: string
+            - name: permanent
+              type: boolean
+      404: { description: The sensor connection not found }
+  delete:
+    operationId: sensible_detach
+    responses:
+      204: { description: The sensor successfully detached }
+      404: { description: Sensor connection not found }
+

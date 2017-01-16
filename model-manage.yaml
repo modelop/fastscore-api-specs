@@ -113,36 +113,161 @@ paths:
         204: { description: The model successfully deleted }
         404: { description: Model not found }
 
-##  /1/model/:model/attachment
-##    TODO
+  /1/model/{model}/attachment:
+    parameters:
+      - name: model
+        description: The name of the model to list attachments
+        type: string
+        in: path
+        required: true
+    get:
+      operationId: attachment_list
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Returns a list of attachments of the given model
+          schema:
+            type: array
+            items:
+              type: string
+        403: { description: Model not found }
+
+  /1/model/{model}/attachment/{attachment}:
+    parameters:
+      - name: model
+        description: The name of the model of the attachment
+        type: string
+        in: path
+        required: true
+      - name: attachment
+        description: The name of the attachment
+        type: string
+        in: path
+        required: true
+    head:
+      operationId: attachment_head
+      responses:
+        200: { description: The Content-Length header contains the attachment size }
+        404: { description: Attachment not found }
+    get:
+      operationId: attachment_get
+      produces:
+        - application/zip
+        - application/gzip
+      responses:
+        200: { description: Returns the contents of the attachment }
+        404: { description: Attachment not found }
+    put:
+      operationId: attachment_add
+      consumes:
+        - application/zip
+        - application/gzip
+      responses:
+        201: { description: The attachment successfully added }
+        204: { description: The attachment successfully updated }
+        404: { description: Attachment not found }
+
+    delete:
+      operationId: attachment_delete
+      responses:
+        201: { description: The attachment successfully deleted }
+        404: { description: Attachment not found }
+
+  /1/schema:
+    get:
+      operationId: schema_list
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the list of registered schemas }
+
+  /1/schema/{schema}:
+    parameters:
+      - name: schema
+        description: The name of the schema
+        type: string
+        in: path
+        required: true
+    get:
+      operationId: schema_get
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the schema contents }
+        404: { description: Schema not found }
+    put:
+      operationId: schema_put
+      consumes:
+        - application/json
+      responses:
+        201: { description: The schema successfully added }
+        204: { description: The schema successfully updated } 
+    delete:
+      operationId: schema_delete
+      responses:
+        204: { description: The schema successfully deleted }
+        404: { description: Schema not found }
+
+  /1/stream/{stream}:
+    parameters:
+      - name: stream
+        description: The name of the stream
+        type: string
+        in: path
+        required: true
+    get:
+      operationId: stream_get
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the stream descriptor }
+        404: { description: Stream not found }
+    put:
+      operationId: stream_put
+      consumes:
+        - application/json
+      responses:
+        201: { description: The stream successfully added }
+        204: { description: The stream successfully updated } 
+    delete:
+      operationId: stream_delete
+      responses:
+        204: { description: The stream successfully deleted }
+        404: { description: Stream not found }
+
+  /1/sensor/{sensor}:
+    parameters:
+      - name: sensor
+        description: The name of the sensor
+        type: string
+        in: path
+        required: true
+    get:
+      operationId: sensor_get
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the sensor descriptor }
+        404: { description: Sensor not found }
+    put:
+      operationId: sensor_put
+      consumes:
+        - application/json
+      responses:
+        201: { description: The sensor successfully added }
+        204: { description: The sensor successfully updated } 
+    delete:
+      operationId: sensor_delete
+      responses:
+        204: { description: The sensor successfully deleted }
+        404: { description: Sensor not found }
+
 ##
-##  /1/model/:model/attachment/:attachment
-##    TODO
+## Sensor control provided by the 'sensible' application
 ##
-##  /1/schema:
-##    TODO
-##
-##  /1/schema/:schema:
-##    TODO
-##
-##  /1/stream:
-##    TODO
-##
-##  /1/stream/:stream:
-##    TODO
-##
-##  /1/control/sensor:
-##    TODO
-##
-##  /1/control/sensor/available:
-##    TODO
-##
-##  /1/control/sensor/:id:
-##    TODO
-##
-##  /1/sensor:
-##    TODO
-##
-##  /1/sensor/:sensor:
-##    TODO
+
+  /1/control/sensor:            { $ref: ./sensible.yaml#/list-all }
+  /1/control/sensor/available:  { $ref: ./sensible.yaml#/list-available }
+  /1/control/sensor/{id}:       { $ref: ./sensible.yaml#/tap-control }
 
