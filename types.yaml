@@ -21,3 +21,40 @@ ModelInfo:
       items:
         type: string
 
+StatusInfo:
+  type: object
+  properties:
+    input:
+      type: object
+      properties:
+        descriptor: { type: string }
+        total_records: { type: integer }
+        total_bytes: { type: integer }
+        eof: { type: boolean }
+    output:
+      type: object
+      properties:
+        descriptor: { type: string }
+        total_records: { type: integer }
+        total_bytes: { type: integer }
+    model:
+      type: object
+      peroperties:
+        type: { type: string }
+        source: { type: string }
+        attachments:
+          type: array
+          items: { type: string }
+    jets:
+      type: array
+      items:
+        type: object
+        properties:
+          pid: { type: integer }
+          sandbox: { type: string }
+          total_consumed: { type: integer }
+          total_produced: { type: integer }
+          run_time: { type: integer }
+          memory: { type: integer }
+          busy: { type: boolean }
+
