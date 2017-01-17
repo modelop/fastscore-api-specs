@@ -83,7 +83,7 @@ paths:
           type: string
           in: query
         - name: return
-          description: A comma-separated list of field to return
+          description: A comma-separated list of fields to return
           type: string
           in: query
       produces:

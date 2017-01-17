@@ -209,6 +209,14 @@ paths:
         204: { description: The schema successfully deleted }
         404: { description: Schema not found }
 
+  /1/stream:
+    get:
+      operationId: stream_list
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the list of stream descriptors }
+
   /1/stream/{stream}:
     parameters:
       - name: stream
@@ -235,6 +243,14 @@ paths:
       responses:
         204: { description: The stream successfully deleted }
         404: { description: Stream not found }
+
+  /1/sensor:
+    get:
+      operationId: sensor_list
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the list of sensor descriptors }
 
   /1/sensor/{sensor}:
     parameters:

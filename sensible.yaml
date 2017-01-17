@@ -24,19 +24,6 @@ list-all:
               type: string
             - name: active
               type: boolean
-
-list-available:
-  get:
-    operationId: sensible_list_available
-    produces:
-      - application/json
-    responses:
-      200:
-        description: Returns the list of tapping points
-        schema:
-          type: array
-          items:
-            type: string
   post:
     operationId: sensible_attach
     consumes:
@@ -54,6 +41,19 @@ list-available:
               description: The identifier of the sensor connection
               type: integer
       400: { description: The sensor descriptor is invalid }
+
+list-available:
+  get:
+    operationId: sensible_list_available
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Returns the list of tapping points
+        schema:
+          type: array
+          items:
+            type: string
 
 tap-control:
   parameters:
