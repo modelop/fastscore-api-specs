@@ -186,6 +186,8 @@ paths:
         in: query
       - date-range
         description: The range of snapshot dates, e.g. 2017-04-11--2017-04-13
+        type: string
+        in: query
     get:
       operationId: snapshot_list
       produces:
@@ -218,6 +220,7 @@ paths:
       responses:
         200: { description: Returns the snapshot metadata and its contents }
         300: { description: The id prefix is ambiguous }
+        403: { description: Model not found }
         404: { description: Snapshot not found }
     put:
       operationId: snapshot_add
@@ -226,13 +229,12 @@ paths:
         - multipart/form-data
       responses:
         201: { description: The snapshot successfully added }
-        400: { description: The snapshot id is too short (one possibility) }
-        403: { description: The snapshot already exists }
+        400: { description: The snapshot already exists (one possibility) }
 
     delete:
       operationId: snapshot_delete
       responses:
-        201: { description: The snapshot successfully deleted }
+        204: { description: The snapshot successfully deleted }
         300: { description: The id prefix is ambiguous }
         404: { description: Snapshot not found }
 
