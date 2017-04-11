@@ -166,7 +166,6 @@ paths:
       responses:
         201: { description: The attachment successfully added }
         204: { description: The attachment successfully updated }
-        404: { description: Attachment not found }
 
     delete:
       operationId: attachment_delete
@@ -174,6 +173,89 @@ paths:
         201: { description: The attachment successfully deleted }
         404: { description: Attachment not found }
 
+  /1/model/{model}/snapshot:
+    parameters:
+      - name: model
+        description: The name of the model to list snapshots
+        type: string
+        in: path
+        required: true
+      - name: count
+        description: The maximum number of items to return
+        type: integer
+        in: query
+      - date-range
+        description: The range of snapshot dates, e.g. 2017-04-11--2017-04-13
+    get:
+      operationId: snapshot_list
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Returns a list of snapshots of the given model
+          schema:
+            type: array
+            items:
+              type: object
+        403: { description: Model not found }
+
+  /1/model/{model}/snapshot/{snap-id-prefix}:
+    parameters:
+      - name: model
+        description: The name of the model
+        type: string
+        in: path
+        required: true
+      - name: snap-id-prefix
+        description: The (prefix of the id ) of the snapshot
+        type: string
+        in: path
+        required: true
+    get:
+      operationId: snapshot_get
+      produces:
+        - multipart/mixed
+      responses:
+        200: { description: Returns the snapshot metadata and its contents }
+        300: { description: The id prefix is ambiguous }
+        404: { description: Snapshot not found }
+    put:
+      operationId: snapshot_add
+      consumes:
+        - multipart/mixed
+      responses:
+        201: { description: The snapshot successfully added }
+        400: { description: The snapshot id is too short (one possibility) }
+        403: { description: The snapshot already exists }
+
+    delete:
+      operationId: snapshot_delete
+      responses:
+        201: { description: The snapshot successfully deleted }
+        300: { description: The id prefix is ambiguous }
+        404: { description: Snapshot not found }
+
+  /1/model/{model}/snapshot/{snap-id-prefix}/metadata:
+    parameters:
+      - name: model
+        description: The name of the model
+        type: string
+        in: path
+        required: true
+      - name: snap-id-prefix
+        description: The (prefix of the id ) of the snapshot
+        type: string
+        in: path
+        required: true
+    get:
+      operationId: snapshot_get
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the snapshot metadata }
+        300: { description: The id prefix is ambiguous }
+        404: { description: Snapshot not found }
+ 
   /1/schema:
     get:
       operationId: schema_list
