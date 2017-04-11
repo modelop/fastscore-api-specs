@@ -223,6 +223,7 @@ paths:
       operationId: snapshot_add
       consumes:
         - multipart/mixed
+        - multipart/form-data
       responses:
         201: { description: The snapshot successfully added }
         400: { description: The snapshot id is too short (one possibility) }
