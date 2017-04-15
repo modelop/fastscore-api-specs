@@ -184,7 +184,7 @@ paths:
         description: The maximum number of items to return
         type: integer
         in: query
-      - date-range
+      - name: date-range
         description: The range of snapshot dates, e.g. 2017-04-11--2017-04-13
         type: string
         in: query

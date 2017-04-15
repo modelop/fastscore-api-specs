@@ -210,10 +210,50 @@ paths:
 
   /1/job/input:
     post:
-      operationId: job_input
+      operationId: job_io_input1
       responses:
-        200: { description: The batch processed successfully }
-        400: { description: Non-pigging transport or timeout }
+        204: { description: Data put to REST stream trasport id 1 }
+        403: { description: REST stream transport id 1 not found }
+
+  /1/job/input/{id}:
+    post:
+      operationId: job_io_input
+      parameters:
+        - name: id
+          description: REST stream transport id
+          type: integer
+          in: path
+          required: true
+      responses:
+        204: { description: Data put to REST stream trasport }
+        403: { description: REST stream transport not found }
+
+  /1/job/output:
+    get:
+      operationId: job_io_output1
+      responses:
+        200: { description: Retrieves a data chunk from REST stream transport id 1 }
+        403: { description: REST stream transport id 1 not found }
+
+  /1/job/output/{id}:
+    get:
+      operationId: job_io_output
+      parameters:
+        - name: id
+          description: REST stream transport id
+          type: integer
+          in: path
+          required: true
+      responses:
+        200: { description: Retrieves a data chunk from REST stream transport }
+        403: { description: REST stream transport not found }
+
+  /1/job/model/state:
+    put:
+      operationId: job_state_restore
+      responses:
+        204: { description: The model state restored successfully }
+        403: { description: The state date is corrupted (one possibility) }
 
   /1/debug/output:
     get:
@@ -227,4 +267,12 @@ paths:
             type: array
             items:
               type: string
+
+##
+## Sensor control provided by the 'sensible' application
+##
+
+  /1/control/sensor:            { $ref: ./sensible.yaml#/list-all }
+  /1/control/sensor/available:  { $ref: ./sensible.yaml#/list-available }
+  /1/control/sensor/{id}:       { $ref: ./sensible.yaml#/tap-control }
 
