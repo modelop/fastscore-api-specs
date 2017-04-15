@@ -258,6 +258,27 @@ paths:
         200: { description: Returns the snapshot metadata }
         300: { description: The id prefix is ambiguous }
         404: { description: Snapshot not found }
+
+  /1/model/{model}/snapshot/{snap-id-prefix}/contents:
+    parameters:
+      - name: model
+        description: The name of the model
+        type: string
+        in: path
+        required: true
+      - name: snap-id-prefix
+        description: The (prefix of the id ) of the snapshot
+        type: string
+        in: path
+        required: true
+    get:
+      operationId: snapshot_get
+      produces:
+        - application/json
+      responses:
+        200: { description: Returns the snapshot contents }
+        300: { description: The id prefix is ambiguous }
+        404: { description: Snapshot not found }
  
   /1/schema:
     get:
