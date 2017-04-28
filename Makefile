@@ -2,7 +2,6 @@
 .PHONY: default
 
 validate:
-	swagger validate connect.yaml
-	swagger validate model-manage.yaml
-	swagger validate engine-x.yaml
+	swagger validate suite-proxy.yaml
+	swagger validate login.yaml
 
