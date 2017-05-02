@@ -115,23 +115,33 @@ paths:
       operationId: swagger_get
       produces:
         - application/json
-        - application/yaml
+        - application/x-yaml
       responses:
-        200: { description: The service Swagger API specification }
+        200:
+          description: The service Swagger API specification
+          schema:
+            type: string
 
   /{instance}/1/config:
     put:
       parameters:
         - $ref: "#/parameters/instance"
+        - name: config
+          description: The FastScore Configuration
+          type: string
+          in: body
+          schema:
+            type: string
+          required: true
       tags:
         - Connect
       operationId: config_put
       consumes:
-        - application/yaml
+        - application/x-yaml
         - application/json
       responses:
         204: { description: The configuration updated successfully }
-        400: { description: Malformed YAML/JSON }
+        400: { description: Malformed YAML }
     get:
       parameters:
         - $ref: "#/parameters/instance"
@@ -143,11 +153,14 @@ paths:
         - Connect
       operationId: config_get
       produces:
-        - application/yaml
+        - application/x-yaml
         - application/json
         - text/plain
       responses:
-        200: { description: Returns the (section of the) current configuration }
+        200:
+          description: Returns the (section of the) current configuration
+          schema:
+            type: object
         404: { description: The configuration not set or section missing }
 
   /{instance}/1/connect:
@@ -189,7 +202,11 @@ paths:
         - application/json
         - text/plain
       responses:
-        200: { description: The information about the FastScore fleet }
+        200:
+          description: The information about the FastScore fleet
+          schema:
+            type: array
+            items: { $ref: ./types.yaml#/HealthInfo }
         403: { description: The configuration not set yet }
 
   /{instance}/1/model:
@@ -249,7 +266,7 @@ paths:
         - $ref: "#/parameters/model"
       tags:
         - ModelManage
-      operationId: model_add
+      operationId: model_put
       consumes:
         - application/vnd.fastscore.model-pfa+json
         - application/vnd.fastscore.model-pfa-json
@@ -518,7 +535,12 @@ paths:
       produces:
         - application/json
       responses:
-        200: { description: Returns the list of stream descriptors }
+        200:
+          description: Returns the list of stream descriptors
+          schema:
+            type: array
+            items:
+              type: string
 
   /{instance}/1/stream/{stream}:
     get:
@@ -566,7 +588,12 @@ paths:
       produces:
         - application/json
       responses:
-        200: { description: Returns the list of sensor descriptors }
+        200:
+          description: Returns the list of sensor descriptors
+          schema:
+            type: array
+            items:
+              type: string
 
   /{instance}/1/sensor/{sensor}:
     get:
