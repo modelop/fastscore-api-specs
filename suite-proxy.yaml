@@ -128,11 +128,14 @@ paths:
         - $ref: "#/parameters/instance"
         - name: config
           description: The FastScore Configuration
-          type: string
           in: body
           schema:
             type: string
           required: true
+        - name: content-type
+          description: configuration MIME type
+          type: string
+          in: header
       tags:
         - Connect
       operationId: config_put
@@ -149,6 +152,10 @@ paths:
           description: Request only the named section
           type: string
           in: query
+        - name: accept
+          description: Force Accept header value
+          type: string
+          in: header
       tags:
         - Connect
       operationId: config_get
@@ -206,7 +213,7 @@ paths:
           description: The information about the FastScore fleet
           schema:
             type: array
-            items: { $ref: ./types.yaml#/HealthInfo }
+            items: { $ref: ./types.yaml#/InstanceInfo }
         403: { description: The configuration not set yet }
 
   /{instance}/1/model:
@@ -228,11 +235,7 @@ paths:
           schema:
             type: array
             items:
-              type: string
-##                  ^
-## GET /1/model may also return an array of objects of ModelInfo type.
-## Unfortunately, Swagger does not support anyOf specifications.
-##
+              type: object
         403: { description: Invalid parameter provided }
 
   /{instance}/1/model/{model}:
@@ -254,16 +257,29 @@ paths:
         - application/vnd.fastscore.model-r
         - application/vnd.fastscore.model-c
         - application/vnd.fastscore.model-java
-        - application/vnd.fastscore.model-scala
-        - application/vnd.fastscore.model-erlang
+#       - application/vnd.fastscore.model-scala
+#       - application/vnd.fastscore.model-erlang
       responses:
-        200: { description: Returns the source code of the requested model }
+        200:
+          description: Returns the source code of the requested model
+          schema:
+            type: string
         404: { description: Model not found }
         
     put:
       parameters:
         - $ref: "#/parameters/instance"
         - $ref: "#/parameters/model"
+        - name: source
+          description: The model source
+          in: body
+          schema:
+            type: string
+          required: true
+        - name: content-type
+          description: model MIME type
+          type: string
+          in: header
       tags:
         - ModelManage
       operationId: model_put
@@ -347,16 +363,30 @@ paths:
         - application/zip
         - application/gzip
       responses:
-        200: { description: Returns the contents of the attachment }
+        200:
+          description: Returns the contents of the attachment
+          schema:
+            type: file
         404: { description: Attachment not found }
     put:
       parameters:
         - $ref: "#/parameters/instance"
         - $ref: "#/parameters/model"
         - $ref: "#/parameters/attachment"
+        - name: data
+          description: attachment data
+          in: body
+          schema:
+            type: string
+          required: true
+        - name: content-type
+          description: attachment MIME type
+          type: string
+          in: header
+          required: true
       tags:
         - ModelManage
-      operationId: attachment_add
+      operationId: attachment_put
       consumes:
         - application/zip
         - application/gzip
@@ -425,7 +455,7 @@ paths:
         - $ref: "#/parameters/snap-id-prefix"
       tags:
         - ModelManage
-      operationId: snapshot_add
+      operationId: snapshot_put
       consumes:
         - multipart/mixed
         - multipart/form-data
@@ -487,7 +517,12 @@ paths:
       produces:
         - application/json
       responses:
-        200: { description: Returns the list of registered schemas }
+        200:
+          description: Returns the list of registered schemas
+          schema:
+            type: array
+            items:
+              type: string
 
   /{instance}/1/schema/{schema}:
     get:
@@ -506,6 +541,12 @@ paths:
       parameters:
         - $ref: "#/parameters/instance"
         - $ref: "#/parameters/schema"
+        - name: source
+          description: The schema source
+          in: body
+          schema:
+            type: string
+          required: true
       tags:
         - ModelManage
       operationId: schema_put
@@ -553,12 +594,21 @@ paths:
       produces:
         - application/json
       responses:
-        200: { description: Returns the stream descriptor }
+        200:
+          description: Returns the stream descriptor
+          schema:
+            type: object
         404: { description: Stream not found }
     put:
       parameters:
         - $ref: "#/parameters/instance"
         - $ref: "#/parameters/stream"
+        - name: desc
+          description: The stream descriptor
+          in: body
+          schema:
+            type: string
+          required: true
       tags:
         - ModelManage
       operationId: stream_put
@@ -612,6 +662,12 @@ paths:
       parameters:
         - $ref: "#/parameters/instance"
         - $ref: "#/parameters/sensor"
+        - name: desc
+          description: The sensor descriptor
+          in: body
+          schema:
+            type: string
+          required: true
       tags:
         - ModelManage
       operationId: sensor_put
@@ -800,10 +856,34 @@ paths:
     put:
       parameters:
         - $ref: "#/parameters/instance"
+        - name: data
+          description: model+attachments
+          in: body
+          schema:
+            type: string
+          required: true
+        - name: content-type
+          description: model MIME type
+          type: string
+          in: header
+        - name: content-disposition
+          description: pass model name
+          type: string
+          in: header
+
+## Swagger 2.0 does not allow setting up Content-Type for individual parameters.
+## It also does not allow dynamic number of parameters (attachments). Thus we
+## resort to manually-crafted request body.
+##
+
       tags:
         - Engine
-      operationId: model_set
+      operationId: model_load
       consumes:
+        ## A model with attachments
+        - multipart/mixed
+        - multipart/form-data
+        ## A model without attachments
         - application/vnd.fastscore.model-pfa+json
         - application/vnd.fastscore.model-pfa-json
         - application/vnd.fastscore.model-pfa-yaml
@@ -816,19 +896,7 @@ paths:
         - application/vnd.fastscore.model-java
         - application/vnd.fastscore.model-scala
         - application/vnd.fastscore.model-erlang
-        ## A model with attachments
-        - multipart/mixed
-        - multipart/form-data
-        ## OBSOLETE - DO NOT USE
-        - application/vnd.pfa+json
-        - application/json
-        - application/vnd.ppfa
-        - application/x-yaml
-        - application/x-r
-        - application/x-python
-        - application/x-python2
-        - application/x-python3
-##
+
 ## The body of the request may contain the source code of the model or a model
 ## and its attachments. An attachment can be inline or be externalized.
 ## See https://opendatagoup.atlassian.net/wiki/display/FAS/Working+with+large+attachments
@@ -836,6 +904,14 @@ paths:
       responses:
         204: { description: The model successfully added to the engine }
         400: { description: See the error message - a lot can go wrong }
+    delete:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Engine
+      operationId: model_unload
+      responses:
+        204: { description: The model unloaded successfully }
 
   /{instance}/1/job/stream/in:
     put:
@@ -893,6 +969,7 @@ paths:
           description: The number of jets to scale model to
           type: integer
           in: query
+          required: true
       tags:
         - Engine
       operationId: job_scale
@@ -910,7 +987,7 @@ paths:
           in: query
       tags:
         - Engine
-      operationId: job_status
+      perationId: job_status
       produces:
         - application/json
       responses:
