@@ -535,7 +535,10 @@ paths:
       produces:
         - application/json
       responses:
-        200: { description: Returns the schema contents }
+        200:
+          description: Returns the schema contents
+          schema:
+            type: object
         404: { description: Schema not found }
     put:
       parameters:
@@ -545,7 +548,7 @@ paths:
           description: The schema source
           in: body
           schema:
-            type: string
+            type: object
           required: true
       tags:
         - ModelManage
@@ -607,7 +610,7 @@ paths:
           description: The stream descriptor
           in: body
           schema:
-            type: string
+            type: object
           required: true
       tags:
         - ModelManage
@@ -656,7 +659,10 @@ paths:
       produces:
         - application/json
       responses:
-        200: { description: Returns the sensor descriptor }
+        200:
+          description: Returns the sensor descriptor
+          schema:
+            type: object
         404: { description: Sensor not found }
     put:
       parameters:
@@ -666,7 +672,7 @@ paths:
           description: The sensor descriptor
           in: body
           schema:
-            type: string
+            type: object
           required: true
       tags:
         - ModelManage
@@ -702,18 +708,26 @@ paths:
         200:
           description: Returns the list of attached sensors
           schema:
-            type: object
-            required:
-              - id
-              - tap
-              - active
-            properties:
-              id: { type: integer }
-              tap: { type: string }
-              active: { type: boolean }
+            type: array
+            items:
+              type: object
+              required:
+                - id
+                - tap
+                - active
+              properties:
+                id: { type: integer }
+                tap: { type: string }
+                active: { type: boolean }
     post:
       parameters:
         - $ref: "#/parameters/instance"
+        - name: desc
+          description: sensor descriptor
+          in: body
+          schema:
+            type: object
+          required: true
       tags:
         - Connect
         - ModelManage
@@ -723,7 +737,6 @@ paths:
         - application/json
       produces:
         - application/json
-        - text/plain
       responses:
         200:
           description: The sensor attached successfully
@@ -794,7 +807,7 @@ paths:
     post:
       parameters:
         - $ref: "#/parameters/instance"
-        - name: stream
+        - name: desc
           description: The stream descriptor to get sample data from
           in: body
           schema:
@@ -807,7 +820,7 @@ paths:
       tags:
         - Engine
       operationId: stream_sample
-      produces:
+      consumes:
         - application/json
       responses:
         200:
@@ -920,7 +933,7 @@ paths:
         - name: stream
           description: The input stream descriptor
           schema:
-            type: string
+            type: object
           in: body
           required: true
       tags:
