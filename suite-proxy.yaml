@@ -108,6 +108,10 @@ paths:
     get:
       parameters:
         - $ref: "#/parameters/instance"
+        - name: accept
+          description: Force Accept header value
+          type: string
+          in: header
       tags:
         - Connect
         - ModelManage
@@ -120,7 +124,7 @@ paths:
         200:
           description: The service Swagger API specification
           schema:
-            type: string
+            type: object
 
   /{instance}/1/config:
     put:
