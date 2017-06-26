@@ -108,7 +108,7 @@ paths:
     get:
       parameters:
         - $ref: "#/parameters/instance"
-        - name: accept
+        - name: Accept
           description: Force Accept header value
           type: string
           in: header
@@ -136,7 +136,7 @@ paths:
           schema:
             type: string
           required: true
-        - name: content-type
+        - name: Content-Type
           description: configuration MIME type
           type: string
           in: header
@@ -156,7 +156,7 @@ paths:
           description: Request only the named section
           type: string
           in: query
-        - name: accept
+        - name: Accept
           description: Force Accept header value
           type: string
           in: header
@@ -279,36 +279,37 @@ paths:
           in: body
           schema:
             type: string
+            format: binary
           required: true
-        - name: content-type
+        - name: Content-Type
           description: model MIME type
           type: string
           in: header
       tags:
         - ModelManage
       operationId: model_put
-      consumes:
-        - application/vnd.fastscore.model-pfa+json
-        - application/vnd.fastscore.model-pfa-json
-        - application/vnd.fastscore.model-pfa-yaml
-        - application/vnd.fastscore.model-pfa-pretty
-        - application/vnd.fastscore.model-python
-        - application/vnd.fastscore.model-python2
-        - application/vnd.fastscore.model-python3
-        - application/vnd.fastscore.model-r
-        - application/vnd.fastscore.model-c
-        - application/vnd.fastscore.model-java
-        - application/vnd.fastscore.model-scala
-        - application/vnd.fastscore.model-erlang
-        ## OBSOLETE - DO NOT USE
-        - application/vnd.pfa+json
-        - application/json
-        - application/vnd.ppfa
-        - application/x-yaml
-        - application/x-r
-        - application/x-python
-        - application/x-python2
-        - application/x-python3
+#      consumes:
+#        - application/vnd.fastscore.model-pfa+json
+#        - application/vnd.fastscore.model-pfa-json
+#        - application/vnd.fastscore.model-pfa-yaml
+#        - application/vnd.fastscore.model-pfa-pretty
+#        - application/vnd.fastscore.model-python
+#        - application/vnd.fastscore.model-python2
+#        - application/vnd.fastscore.model-python3
+#        - application/vnd.fastscore.model-r
+#        - application/vnd.fastscore.model-c
+#        - application/vnd.fastscore.model-java
+#        - application/vnd.fastscore.model-scala
+#        - application/vnd.fastscore.model-erlang
+#        ## OBSOLETE - DO NOT USE
+#        - application/vnd.pfa+json
+#        - application/json
+#        - application/vnd.ppfa
+#        - application/x-yaml
+#        - application/x-r
+#        - application/x-python
+#        - application/x-python2
+#        - application/x-python3
       responses:
         201: { description: The model successfully added }
         204: { description: The model successfully updated }
@@ -383,7 +384,7 @@ paths:
           schema:
             type: string
           required: true
-        - name: content-type
+        - name: Content-Type
           description: attachment MIME type
           type: string
           in: header
@@ -879,11 +880,11 @@ paths:
           schema:
             type: string
           required: true
-        - name: content-type
+        - name: Content-Type
           description: model MIME type
           type: string
           in: header
-        - name: content-disposition
+        - name: Content-Disposition
           description: pass model name
           type: string
           in: header
