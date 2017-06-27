@@ -897,23 +897,23 @@ paths:
       tags:
         - Engine
       operationId: model_load
-      consumes:
-        ## A model with attachments
-        - multipart/mixed
-        - multipart/form-data
-        ## A model without attachments
-        - application/vnd.fastscore.model-pfa+json
-        - application/vnd.fastscore.model-pfa-json
-        - application/vnd.fastscore.model-pfa-yaml
-        - application/vnd.fastscore.model-pfa-pretty
-        - application/vnd.fastscore.model-python
-        - application/vnd.fastscore.model-python2
-        - application/vnd.fastscore.model-python3
-        - application/vnd.fastscore.model-r
-        - application/vnd.fastscore.model-c
-        - application/vnd.fastscore.model-java
-        - application/vnd.fastscore.model-scala
-        - application/vnd.fastscore.model-erlang
+#      consumes:
+#        ## A model with attachments
+#        - multipart/mixed
+#        - multipart/form-data
+#        ## A model without attachments
+#        - application/vnd.fastscore.model-pfa+json
+#        - application/vnd.fastscore.model-pfa-json
+#        - application/vnd.fastscore.model-pfa-yaml
+#        - application/vnd.fastscore.model-pfa-pretty
+#        - application/vnd.fastscore.model-python
+#        - application/vnd.fastscore.model-python2
+#        - application/vnd.fastscore.model-python3
+#        - application/vnd.fastscore.model-r
+#        - application/vnd.fastscore.model-c
+#        - application/vnd.fastscore.model-java
+#        - application/vnd.fastscore.model-scala
+#        - application/vnd.fastscore.model-erlang
 
 ## The body of the request may contain the source code of the model or a model
 ## and its attachments. An attachment can be inline or be externalized.
