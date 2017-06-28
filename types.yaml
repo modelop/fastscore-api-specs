@@ -52,6 +52,9 @@ StatusInfo:
         attachments:
           type: array
           items: { type: string }
+        input_schema: { type: object }
+        output_schema: { type: object }
+        recordsets: { type: string }
     jets:
       type: array
       items:
@@ -98,4 +101,3 @@ CpuUsageInfo:
           user_time:      { type: number }
           kernel_time:    { type: number }
           model_time:     { type: number }
-

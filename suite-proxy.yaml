@@ -1005,7 +1005,7 @@ paths:
           in: query
       tags:
         - Engine
-      perationId: job_status
+      operationId: job_status
       produces:
         - application/json
       responses:
