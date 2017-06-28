@@ -66,7 +66,7 @@ paths:
   ## from v1 import Configuration # a singleton
   ## conf = Configuration()
   ## conf.host = 'https://localhost'
-  
+
     post:
       tags:
         - Login
@@ -269,7 +269,7 @@ paths:
           schema:
             type: string
         404: { description: Model not found }
-        
+
     put:
       parameters:
         - $ref: "#/parameters/instance"
@@ -511,7 +511,7 @@ paths:
         200: { description: Returns the snapshot contents }
         300: { description: The id prefix is ambiguous }
         404: { description: Snapshot not found }
- 
+
   /{instance}/1/schema:
     get:
       parameters:
@@ -562,7 +562,7 @@ paths:
         - application/json
       responses:
         201: { description: The schema successfully added }
-        204: { description: The schema successfully updated } 
+        204: { description: The schema successfully updated }
     delete:
       parameters:
         - $ref: "#/parameters/instance"
@@ -624,7 +624,7 @@ paths:
         - application/json
       responses:
         201: { description: The stream successfully added }
-        204: { description: The stream successfully updated } 
+        204: { description: The stream successfully updated }
     delete:
       parameters:
         - $ref: "#/parameters/instance"
@@ -686,7 +686,7 @@ paths:
         - application/json
       responses:
         201: { description: The sensor successfully added }
-        204: { description: The sensor successfully updated } 
+        204: { description: The sensor successfully updated }
     delete:
       parameters:
         - $ref: "#/parameters/instance"
@@ -752,7 +752,7 @@ paths:
                 description: The identifier of the sensor connection
                 type: integer
         400: { description: The sensor descriptor is invalid }
- 
+
   /{instance}/1/control/sensor/available:
     get:
       parameters:
@@ -1057,6 +1057,12 @@ paths:
     post:
       parameters:
         - $ref: "#/parameters/instance"
+        - name: data
+          description: Input data
+          in: body
+          schema:
+            type: string
+          required: true
         - name: id
           description: REST stream transport id
           type: integer
@@ -1064,6 +1070,8 @@ paths:
           required: true
       tags:
         - Engine
+      consumes:
+        - application/octet-stream
       operationId: job_io_input
       responses:
         204: { description: Data put to REST stream trasport }
@@ -1092,8 +1100,13 @@ paths:
       tags:
         - Engine
       operationId: job_io_output
+      produces:
+        - application/octet-stream
       responses:
-        200: { description: Retrieves a data chunk from REST stream transport }
+        200:
+          description: Retrieves a data chunk from REST stream transport
+          schema:
+            type: string
         403: { description: REST stream transport not found }
 
   /{instance}/1/job/model/state:
@@ -1123,4 +1136,3 @@ paths:
             type: array
             items:
               type: string
-
