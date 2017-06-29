@@ -383,6 +383,7 @@ paths:
           in: body
           schema:
             type: string
+            format: binary
           required: true
         - name: Content-Type
           description: attachment MIME type
@@ -393,8 +394,8 @@ paths:
         - ModelManage
       operationId: attachment_put
       consumes:
-        - application/zip
         - application/gzip
+        - application/zip
       responses:
         201: { description: The attachment successfully added }
         204: { description: The attachment successfully updated }
