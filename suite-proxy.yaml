@@ -917,7 +917,7 @@ paths:
 #        - application/vnd.fastscore.model-erlang
 
 ## The body of the request may contain the source code of the model or a model
-## and its attachments. An attachment can be inline or be externalized.
+## and its attachments. An attachment can be inline or externalized.
 ## See https://opendatagoup.atlassian.net/wiki/display/FAS/Working+with+large+attachments
 ##
       responses:
@@ -968,6 +968,30 @@ paths:
         - application/json
       responses:
         204: { description: The output stream set successfully }
+        400: { description: Invalid stream descriptor }
+
+  /{instance}/1/job/stream/{slot}:
+    put:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: slot
+          description: The target stream slot (name or number)
+          in: path
+          type: string
+          required: true
+        - name: stream
+          description: The input/output stream descriptor
+          schema:
+            type: string
+          in: body
+          required: true
+      tags:
+        - Engine
+      operationId: stream_attach
+      consumes:
+        - application/json
+      responses:
+        204: { description: The input/output stream attached successfully }
         400: { description: Invalid stream descriptor }
 
   /{instance}/1/job:
