@@ -1161,3 +1161,42 @@ paths:
             type: array
             items:
               type: string
+
+  /{instance}/1/policy:
+    get:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Engine
+      operationId: policy_get
+      produces:
+        - application/vnd.fastscore.import-policy-python
+        - application/vnd.fastscore.import-policy-python3
+        - application/vnd.fastscore.import-policy-r
+        - application/vnd.fastscore.import-policy-java
+        - application/vnd.fastscore.import-policy-c
+      responses:
+        200:
+          description: Returns content of the requested policy
+          schema:
+            type: string
+            format: binary
+    put:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: policy
+          description: The policy content
+          in: body
+          schema:
+            type: string
+            format: binary
+          required: true
+        - name: Content-Type
+          description: model MIME type
+          type: string
+          in: header
+      tags:
+        - Engine
+      operationId: policy_put
+      responses:
+        201: { description: The policy successfully updated }
