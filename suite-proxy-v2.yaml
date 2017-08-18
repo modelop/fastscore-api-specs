@@ -19,32 +19,32 @@ paths:
     post:
       parameters:
         - $ref: "#/parameters/instance"
-    tags:
-      - Engine
-    operationId: manifold_pause
-    responses:
-      204: { description: paused ok }
-      400: { description: pausing error }
+      tags:
+        - Engine
+      operationId: manifold_pause
+      responses:
+        204: { description: paused ok }
+        400: { description: pausing error }
 
   /{instance}/2/manifold/unpause:
     post:
       parameters:
         - $ref: "#/parameters/instance"
-    tags:
-      - Engine
-    operationId: manifold_unpause
-    responses:
-      204: { description: unpaused ok }
-      400: { description: unpausing error }
+      tags:
+        - Engine
+      operationId: manifold_unpause
+      responses:
+        204: { description: unpaused ok }
+        400: { description: unpausing error }
 
   /{instance}/2/manifold/reset:
-     post:
+    post:
       parameters:
         - $ref: "#/parameters/instance"
-    tags:
-      - Engine
-    operationId: manifold_reset
-    responses:
-      204: { description: reset ok }
-      400: { description: reset error }
+      tags:
+        - Engine
+      operationId: manifold_reset
+      responses:
+        204: { description: reset ok }
+        400: { description: reset error }
 
