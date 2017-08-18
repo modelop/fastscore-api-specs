@@ -1,0 +1,50 @@
+swagger: '2.0'
+info:
+  title: FastScore API (proxy)
+  version: '1.6'
+schemes:
+  - https
+basePath: /api/1/service
+
+parameters:
+  instance:
+    name: instance
+    description: instance name
+    type: string
+    in: path
+    required: true
+
+paths:
+  /{instance}/2/manifold/pause:
+    post:
+      parameters:
+        - $ref: "#/parameters/instance"
+    tags:
+      - Engine
+    operationId: manifold_pause
+    responses:
+      204: { description: paused ok }
+      400: { description: pausing error }
+
+  /{instance}/2/manifold/unpause:
+    post:
+      parameters:
+        - $ref: "#/parameters/instance"
+    tags:
+      - Engine
+    operationId: manifold_unpause
+    responses:
+      204: { description: unpaused ok }
+      400: { description: unpausing error }
+
+  /{instance}/2/manifold/reset:
+     post:
+      parameters:
+        - $ref: "#/parameters/instance"
+    tags:
+      - Engine
+    operationId: manifold_reset
+    responses:
+      204: { description: reset ok }
+      400: { description: reset error }
+

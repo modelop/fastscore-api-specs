@@ -28,6 +28,31 @@ ModelInfo:
       items:
         type: string
 
+# model load dry run
+VerifyInfo:
+  type: object
+  properties:
+    slots:
+      type: array
+      items:
+        type: object
+        properties:
+          slot: { type: integer }
+          schema: { type: string }
+          recordsets: { type: boolean }
+          action: { type: string }
+    install_libs:
+      type: array
+      items: { type: string }
+    warn_libs:
+      type: array
+      items: { type: string }
+    attach_libs:
+      type: array
+      items: { type: string }
+    snapshots: { type: string }
+
+## OBSOLETE ##
 StatusInfo:
   type: object
   properties:
@@ -67,6 +92,43 @@ StatusInfo:
           run_time: { type: integer }
           memory: { type: integer }
           busy: { type: boolean }
+
+ManifoldInfo:
+  type: object
+  properties:
+    model:
+      type: object
+      properties:
+        name: { type: string }
+        type: { type: string }
+        source: { type: string }
+        attachments:
+          type: array
+          items: { type: string }
+    slots:
+      type: array
+      items:
+        type: object
+        properties:
+          slot: { type: integer }
+          schema: { type: object }
+          recordsets: { type: boolean }
+          action: { type: boolean }
+          stream:
+            type: object
+            properties:
+              descriptor: { type: object }
+              eof: {type: boolean }
+    jets:
+      type: array
+      items:
+        type: object
+        properties:
+          pid: { type: integer }
+          sandbox: { type: string }
+          busy: { type: boolean }
+    snapshots: { type: string }
+    state: { type: string }
 
 CpuUsageInfo:
   type: object
