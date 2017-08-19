@@ -102,7 +102,7 @@ paths:
         200:
           description: Indicates that the instance is healthy
           schema:
-            $ref: ./types.yaml#/HealthInfo
+            $ref: ./types-v1.yaml#/HealthInfo
 
   /{instance}/1/swagger:
     get:
@@ -217,7 +217,7 @@ paths:
           description: The information about the FastScore fleet
           schema:
             type: array
-            items: { $ref: ./types.yaml#/InstanceInfo }
+            items: { $ref: ./types-v1.yaml#/InstanceInfo }
         403: { description: The configuration not set yet }
 
   /{instance}/1/model:
@@ -927,7 +927,7 @@ paths:
       responses:
         200:
           description: The model loaded successfully (dry run)
-          schema: { $ref: ./types.yaml#/VerifyInfo }
+          schema: { $ref: ./types-v1.yaml#/VerifyInfo }
         204: { description: The model successfully added to the engine }
         400: { description: See the error message - a lot can go wrong }
     delete:
@@ -1043,7 +1043,7 @@ paths:
       responses:
         200:
           description: Returns the engine status information
-          schema: { $ref: ./types.yaml#/ManifoldInfo }
+          schema: { $ref: ./types-v1.yaml#/ManifoldInfo }
 
   /{instance}/1/job/sample/cpu:
     post:
@@ -1061,7 +1061,7 @@ paths:
       responses:
         200:
           description: CPU usage data collected successfully
-          schema: { $ref: ./types.yaml#/CpuUsageInfo }
+          schema: { $ref: ./types-v1.yaml#/CpuUsageInfo }
         403: { description: Invalid parameter }
 
   /{instance}/1/job/input:

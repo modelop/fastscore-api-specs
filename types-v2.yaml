@@ -1,0 +1,33 @@
+
+ActiveModelInfo:
+  type: object
+  properties:
+    name: { type: string }
+    mtype: { type: string }
+    source: { type: string }
+    slots:
+      type: array
+      items:
+        $ref: ./types-v2.yaml#/SlotInfo
+    attachments:
+      type: array
+      items: { type: string }
+    jets:
+      type: array
+      items:
+        $ref: ./types-v2.yaml#/JetInfo
+
+SlotInfo:
+  type: object
+  properties:
+    slot: { type: integer }
+    schema: { type: object }
+    recordsets: { type: boolean }
+    action: { type: string }
+
+JetInfo:
+  type: object
+  properties:
+    pid: { type: integer }
+    sandbox: { type: string }
+ 

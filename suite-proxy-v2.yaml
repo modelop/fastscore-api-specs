@@ -15,36 +15,60 @@ parameters:
     required: true
 
 paths:
-  /{instance}/2/manifold/pause:
+  /{instance}/2/engine/pause:
     post:
       parameters:
         - $ref: "#/parameters/instance"
       tags:
         - Engine
-      operationId: manifold_pause
+      operationId: engine_pause
       responses:
         204: { description: paused ok }
         400: { description: pausing error }
 
-  /{instance}/2/manifold/unpause:
+  /{instance}/2/engine/unpause:
     post:
       parameters:
         - $ref: "#/parameters/instance"
       tags:
         - Engine
-      operationId: manifold_unpause
+      operationId: engine_unpause
       responses:
         204: { description: unpaused ok }
         400: { description: unpausing error }
 
-  /{instance}/2/manifold/reset:
+  /{instance}/2/engine/reset:
     post:
       parameters:
         - $ref: "#/parameters/instance"
       tags:
         - Engine
-      operationId: manifold_reset
+      operationId: engine_reset
       responses:
         204: { description: reset ok }
         400: { description: reset error }
+
+  /{instance}/2/active/model:
+    get:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Engine
+      operationId: active_model_get
+      responses:
+        200:
+          description: active model info
+          schema:
+            $ref: ./types-v2.yaml#/ActiveModelInfo
+        404: { description: model not loaded }
+    delete:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Engine
+      operationId: active_model_delete
+      responses:
+        204: { description: model unload ok }
+        400: { description: model unload error }
+        404: { description: model not loaded }
 
