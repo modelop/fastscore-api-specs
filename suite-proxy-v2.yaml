@@ -243,3 +243,19 @@ paths:
         400: { description: stream detach error }
         404: { description: stream not found }
 
+  /{instance}/2/pneumo:
+    get:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Connect
+      operationId: pneumo_get
+      responses:
+        200:
+          description: buffered pneumo messages
+          schema:
+            type: array
+            items:
+              # PneumoMsg-derived - see types-v2.yaml
+              type: object
+ 

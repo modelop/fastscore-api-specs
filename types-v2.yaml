@@ -101,4 +101,61 @@ SensorDescriptor:
       type: object
       properties:
         Interval: { type: number }
- 
+
+# See https://opendatagoup.atlassian.net/wiki/x/BYChAQ
+
+HealthMsg:
+  type: object
+  properties:
+    src: { type: string }
+    timestamp: { type: string }
+    type: { type: string }  # health
+    instance: { type: string }
+    health: { type: string }
+
+EngineStateMsg:
+  type: object
+  properties:
+    src: { type: string }
+    timestamp: { type: string }
+    type: { type: string }  # engine-state
+    state: { type: string }
+
+EngineConfigMsg:
+  type: object
+  properties:
+    src: { type: string }
+    timestamp: { type: string }
+    type: { type: string }  # engine-config
+    item: { type: string }
+    op: { type: string }
+  additionalProperties:
+    ref: { type: string }
+
+LogMsg:
+  type: object
+  properties:
+    src: { type: string }
+    timestamp: { type: string }
+    type: { type: string }  # log
+    level: { type: integer }
+    text: { type: string }
+
+ModelConsoleMsg:
+  type: object
+  properties:
+    src: { type: string }
+    timestamp: { type: string }
+    type: { type: string }  # model-console
+    text: { type: string }
+
+SensorReportMsg:
+  type: object
+  properties:
+    src: { type: string }
+    timestamp: { type: string }
+    type: { type: string }  # sensor-report
+    id: { type: integer }
+    tap: { type: string }
+    #data: integer or string or object
+
