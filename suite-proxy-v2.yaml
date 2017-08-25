@@ -13,8 +13,90 @@ parameters:
     type: string
     in: path
     required: true
+  tap-id:
+    name: tap-id
+    description: installed sensor id
+    type: integer
+    in: path
+    required: true
+  slot:
+    name: slot
+    description: stream slot number
+    type: integer
+    in: path
+    required: true
 
 paths:
+  /{instance}/2/active/sensor:
+    get:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Connect
+        - ModelManage
+        - Engine
+      operationId: active_sensor_list
+      responses:
+        200:
+          description: active sensor list
+          schema:
+            type: array
+            items:
+              $ref: ./types-v2.yaml#/ActiveSensorInfo
+    post:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: desc
+          description: sensor descriptor
+          in: body
+          schema:
+            $ref: ./types-v2.yaml#/SensorDescriptor
+          required: true
+      tags:
+        - Connect
+        - ModelManage
+        - Engine
+      operationId: active_sensor_install
+      responses:
+        200:
+          description: sensor install ok
+          schema:
+            type: object
+            properties:
+              id: { type: integer }
+        400: { description: sensor install error }
+
+  /{instance}/2/active/sensor/{tap-id}:
+    delete:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - $ref: "#/parameters/tap-id"
+      tags:
+        - Connect
+        - ModelManage
+        - Engine
+      operationId: active_sensor_uninstall
+      responses:
+        204: { description: sensor uninstall ok }
+        400: { description: sensor uninstall error }
+        404: { description: sensor not found }
+
+  /{instance}/2/active/sensor/points:
+    get:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Connect
+        - ModelManage
+        - Engine
+      operationId: active_sensor_points
+      responses:
+        200:
+          description: tapping point list
+          schema:
+            type: array
+            items: { type: string }
+ 
   /{instance}/2/engine/pause:
     post:
       parameters:
@@ -36,6 +118,21 @@ paths:
       responses:
         204: { description: unpaused ok }
         400: { description: unpausing error }
+
+  /{instance}/2/engine/state:
+    get:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Engine
+      operationId: engine_state_get
+      responses:
+        200:
+          description: engine state
+          schema:
+            type: object
+            properties:
+              state: { type: string }
 
   /{instance}/2/engine/reset:
     post:
@@ -71,4 +168,69 @@ paths:
         204: { description: model unload ok }
         400: { description: model unload error }
         404: { description: model not loaded }
+
+  /{instance}/2/active/model/scale:
+    post:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: factor
+          description: jet count
+          in: body
+          schema:
+            type: integer
+          required: true
+      tags:
+        - Engine
+      operationId: active_model_scale
+      responses:
+        204: { description: scale ok }
+        400: { description: scale error }
+ 
+  /{instance}/2/active/stream:
+    get:
+      parameters:
+        - $ref: "#/parameters/instance"
+      tags:
+        - Engine
+      operationId: active_stream_list
+      responses:
+        200:
+          description: active stream list
+          schema:
+            type: array
+            items:
+              $ref: ./types-v2.yaml#/ActiveStreamInfo
+
+  /{instance}/2/active/stream/{slot}:
+    put:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: desc
+          description: The stream descriptor
+          in: body
+          schema:
+            $ref: ./types-v2.yaml#/StreamDescriptor
+          required: true
+        - $ref: "#/parameters/slot"
+        - name: Content-Disposition
+          description: pass stream name
+          type: string
+          in: header
+      tags:
+        - Engine
+      operationId: active_stream_attach
+      responses:
+        204: { description: stream attached ok }
+        400: { description: stream attach error }
+    delete:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - $ref: "#/parameters/slot"
+      tags:
+        - Engine
+      operationId: active_stream_detach
+      responses:
+        204: { description: stream detached ok }
+        400: { description: stream detach error }
+        404: { description: stream not found }
 

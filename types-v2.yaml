@@ -1,4 +1,10 @@
 
+ActiveSensorInfo:
+  type: object
+  properties:
+    id: { type: integer }
+    tap: { type: string }
+
 ActiveModelInfo:
   type: object
   properties:
@@ -12,6 +18,7 @@ ActiveModelInfo:
     attachments:
       type: array
       items: { type: string }
+    snapshots: { type: string }
     jets:
       type: array
       items:
@@ -30,4 +37,50 @@ JetInfo:
   properties:
     pid: { type: integer }
     sandbox: { type: string }
+
+ActiveStreamInfo:
+  type: object
+  properties:
+    slot: { type: integer }
+    name: { type: string }
+    descriptor: { type: object }
+    eof: { type: boolean }
+
+# See https://opendatagoup.atlassian.net/wiki/x/G4DSAQ
+StreamDescriptor:
+  type: object
+  properties:
+    Version: { type: string }
+    Description: { type: string }
+    #TODO Transport: string or object
+    Loop: { type: boolean }
+    SkipTo: { type: integer }
+    #TODO SkipToRecord: string or integer or null
+    #TODO Envelope:  string or object or null
+    Encoding: { type: string }
+    #TODO Schema: string or object or null
+    #TODO Batching: string or object or null
+    #TODO LingerTime: int or null
+
+# See https://opendatagoup.atlassian.net/wiki/x/BgCBAg
+SensorDescriptor:
+  type: object
+  properties:
+    Version: { type: string }
+    Tap: { type: string }
+    Description: { type: string }
+    #TODO Activate: string or object
+    Filter:
+      type: object
+      properties:
+        Type: { type: string }
+        Threshold: { type: number }
+        MinValue: { type: number }
+        MaxValue: { type: number }
+    #TODO Aggregate: string or object
+    #TODO Sink: string or object
+    Report:
+      type: object
+      properties:
+        Interval: { type: number }
  
