@@ -212,6 +212,10 @@ paths:
             $ref: ./types-v2.yaml#/StreamDescriptor
           required: true
         - $ref: "#/parameters/slot"
+        - name: dry-run
+          description: verificaton only
+          in: query
+          type: boolean
         - name: Content-Disposition
           description: pass stream name
           type: string
@@ -220,6 +224,11 @@ paths:
         - Engine
       operationId: active_stream_attach
       responses:
+        200:
+          description: stream ok - dry run
+          schema:
+            type: object
+            #$ref: ./types-v2.yaml#/StreamDescriptorInt
         204: { description: stream attached ok }
         400: { description: stream attach error }
     delete:

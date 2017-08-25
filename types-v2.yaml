@@ -62,6 +62,24 @@ StreamDescriptor:
     #TODO Batching: string or object or null
     #TODO LingerTime: int or null
 
+# internal/interpreted stream descriptor
+StreamDescriptorInt:
+  type: object
+  properties:
+    transport: { type: object }
+    loop: { type: boolean }
+    skip_to: { type: integer }
+    #skip_to_record: integer or string
+    envelope: { type: object }
+    encoding: { type: string }
+    #schema: string or object
+    batching:
+      type: object
+      properties:
+        #watermark: integer or string
+        nagle_time: { type: integer }
+    linger_time: { type: integer }
+
 # See https://opendatagoup.atlassian.net/wiki/x/BgCBAg
 SensorDescriptor:
   type: object
