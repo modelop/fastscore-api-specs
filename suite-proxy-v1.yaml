@@ -1163,15 +1163,19 @@ paths:
     get:
       parameters:
         - $ref: "#/parameters/instance"
+        - name: Accept
+          description: Force Accept header value
+          type: string
+          in: header
       tags:
         - Engine
       operationId: policy_get
-      produces:
-        - application/vnd.fastscore.import-policy-python
-        - application/vnd.fastscore.import-policy-python3
-        - application/vnd.fastscore.import-policy-r
-        - application/vnd.fastscore.import-policy-java
-        - application/vnd.fastscore.import-policy-c
+#      produces:
+#        - application/vnd.fastscore.import-policy-python
+#        - application/vnd.fastscore.import-policy-python3
+#        - application/vnd.fastscore.import-policy-r
+#        - application/vnd.fastscore.import-policy-java
+#        - application/vnd.fastscore.import-policy-c
       responses:
         200:
           description: Returns content of the requested policy
@@ -1197,3 +1201,4 @@ paths:
       operationId: policy_put
       responses:
         201: { description: The policy successfully updated }
+
