@@ -393,9 +393,9 @@ paths:
       tags:
         - ModelManage
       operationId: attachment_put
-      consumes:
-        - application/gzip
-        - application/zip
+#      consumes:
+#        - application/gzip
+#        - application/zip
       responses:
         201: { description: The attachment successfully added }
         204: { description: The attachment successfully updated }
