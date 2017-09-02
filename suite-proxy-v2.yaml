@@ -243,6 +243,64 @@ paths:
         400: { description: stream detach error }
         404: { description: stream not found }
 
+  /{instance}/2/active/schema/verify:
+    post:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: schema
+          description: Avro schema
+          in: body
+          schema:
+            type: object
+          required: true
+      tags:
+        - Engine
+      operationId: active_schema_verify
+      responses:
+        200:
+          description: schema ok
+          schema:
+            type: object
+            properties:
+              id: { type: integer }
+        400: { description: schema invalid }
+
+  /{instance}/2/active/schema/verify/{sid}:
+    post:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: sid
+          descripton: schema id
+          in: path
+          type: integer
+          required: true
+        - name: record
+          description: data record to verify
+          in: body
+          schema:
+            type: object
+          required: true
+      tags:
+        - Engine
+      operationId: active_schema_verify_data
+      responses:
+        204: { description: data ok }
+        400: { description: data invalid }
+ 
+    delete:
+      parameters:
+        - $ref: "#/parameters/instance"
+        - name: sid
+          descripton: schema id
+          in: path
+          type: integer
+          required: true
+      tags:
+        - Engine
+      operationId: active_schema_unverify
+      responses:
+        204: { description: schema removed }
+
   /{instance}/2/pneumo:
     get:
       parameters:
