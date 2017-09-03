@@ -277,8 +277,16 @@ paths:
         - name: record
           description: data record to verify
           in: body
+
+          ## We have to wrap the record to verify inside an object. Otherwise,
+          ## Swagger does not send records interpreted as False by Python,
+          ## such as 0, [], or {}.
+
           schema:
             type: object
+            properties:
+              data:
+                type: object
           required: true
       tags:
         - Engine
