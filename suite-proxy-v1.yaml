@@ -450,7 +450,11 @@ paths:
       produces:
         - multipart/mixed
       responses:
-        200: { description: Returns the snapshot metadata and its contents }
+        200:
+          description: Returns the snapshot metadata and its contents
+          schema:
+            type: string
+            format: binary
         300: { description: The id prefix is ambiguous }
         403: { description: Model not found }
         404: { description: Snapshot not found }
@@ -493,7 +497,10 @@ paths:
       produces:
         - application/json
       responses:
-        200: { description: Returns the snapshot metadata }
+        200:
+          description: Returns the snapshot metadata
+          schema:
+            type: object
         300: { description: The id prefix is ambiguous }
         404: { description: Snapshot not found }
 
@@ -507,9 +514,12 @@ paths:
         - ModelManage
       operationId: snapshot_get_contents
       produces:
-        - application/json
+        - application/octet-stream
       responses:
-        200: { description: Returns the snapshot contents }
+        200:
+          description: Returns the snapshot contents
+          schema:
+            type: file
         300: { description: The id prefix is ambiguous }
         404: { description: Snapshot not found }
 
@@ -1131,13 +1141,22 @@ paths:
             type: string
         403: { description: REST stream transport not found }
 
-  /{instance}/1/job/model/state:
+  /{instance}/1/job/state:
     put:
       parameters:
         - $ref: "#/parameters/instance"
+        - name: state
+          description: The model state blob
+          in: body
+          schema:
+            type: string
+            format: binary
+          required: true
       tags:
         - Engine
       operationId: job_state_restore
+      consumes:
+        - application/octet-stream
       responses:
         204: { description: The model state restored successfully }
         403: { description: The state date is corrupted (one possibility) }
