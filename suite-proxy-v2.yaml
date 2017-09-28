@@ -270,7 +270,7 @@ paths:
       parameters:
         - $ref: "#/parameters/instance"
         - name: sid
-          descripton: schema id
+          description: schema id
           in: path
           type: integer
           required: true
@@ -299,7 +299,7 @@ paths:
       parameters:
         - $ref: "#/parameters/instance"
         - name: sid
-          descripton: schema id
+          description: schema id
           in: path
           type: integer
           required: true
