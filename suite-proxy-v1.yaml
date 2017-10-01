@@ -55,6 +55,12 @@ parameters:
     type: integer
     in: path
     required: true
+  slot:
+    name: slot
+    description: The stream slot
+    in: path
+    type: string
+    required: true
 
 paths:
   /1/login:
@@ -992,11 +998,7 @@ paths:
     put:
       parameters:
         - $ref: "#/parameters/instance"
-        - name: slot
-          description: The target stream slot (name or number)
-          in: path
-          type: string
-          required: true
+        - $ref: "#/parameters/slot"
         - name: stream
           description: The input/output stream descriptor
           schema:
