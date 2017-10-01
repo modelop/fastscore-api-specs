@@ -1080,12 +1080,12 @@ paths:
         - $ref: "#/parameters/instance"
       tags:
         - Engine
-      operationId: job_io_input1
+      operationId: job_io_input0
       responses:
-        204: { description: Data put to REST stream trasport id 1 }
-        403: { description: REST stream transport id 1 not found }
+        204: { description: Data put to REST at slot 0 }
+        403: { description: REST stream transport at slot 0 not found }
 
-  /{instance}/1/job/input/{id}:
+  /{instance}/1/job/input/{slot}:
     post:
       parameters:
         - $ref: "#/parameters/instance"
@@ -1094,12 +1094,9 @@ paths:
           in: body
           schema:
             type: string
+            format: binary
           required: true
-        - name: id
-          description: REST stream transport id
-          type: integer
-          in: path
-          required: true
+        - $ref: "#/parameters/slot"
       tags:
         - Engine
       consumes:
@@ -1117,18 +1114,14 @@ paths:
         - Engine
       operationId: job_io_output1
       responses:
-        200: { description: Retrieves a data chunk from REST stream transport id 1 }
-        403: { description: REST stream transport id 1 not found }
+        200: { description: Retrieves a data chunk from REST stream at slot 1 }
+        403: { description: REST stream transport at slot 1 not found }
 
-  /{instance}/1/job/output/{id}:
+  /{instance}/1/job/output/{slot}:
     get:
       parameters:
         - $ref: "#/parameters/instance"
-        - name: id
-          description: REST stream transport id
-          type: integer
-          in: path
-          required: true
+        - $ref: "#/parameters/slot"
       tags:
         - Engine
       operationId: job_io_output
@@ -1139,6 +1132,7 @@ paths:
           description: Retrieves a data chunk from REST stream transport
           schema:
             type: string
+            format: binary
         403: { description: REST stream transport not found }
 
   /{instance}/1/job/state:
