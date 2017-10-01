@@ -135,6 +135,7 @@ paths:
           in: body
           schema:
             type: string
+            format: binary
           required: true
         - name: Content-Type
           description: configuration MIME type
@@ -143,9 +144,9 @@ paths:
       tags:
         - Connect
       operationId: config_put
-      consumes:
-        - application/x-yaml
-        - application/json
+#      consumes:
+#        - application/x-yaml
+#        - application/json
       responses:
         204: { description: The configuration updated successfully }
         400: { description: Malformed YAML }
