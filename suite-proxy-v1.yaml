@@ -257,19 +257,6 @@ paths:
       tags:
         - ModelManage
       operationId: model_get
-      produces:
-        - application/vnd.fastscore.model-pfa+json
-        - application/vnd.fastscore.model-pfa-json
-        - application/vnd.fastscore.model-pfa-yaml
-        - application/vnd.fastscore.model-pfa-pretty
-        - application/vnd.fastscore.model-python
-        - application/vnd.fastscore.model-python2
-        - application/vnd.fastscore.model-python3
-        - application/vnd.fastscore.model-r
-        - application/vnd.fastscore.model-c
-        - application/vnd.fastscore.model-java
-#       - application/vnd.fastscore.model-scala
-#       - application/vnd.fastscore.model-erlang
       responses:
         200:
           description: Returns the source code of the requested model
@@ -295,28 +282,6 @@ paths:
       tags:
         - ModelManage
       operationId: model_put
-#      consumes:
-#        - application/vnd.fastscore.model-pfa+json
-#        - application/vnd.fastscore.model-pfa-json
-#        - application/vnd.fastscore.model-pfa-yaml
-#        - application/vnd.fastscore.model-pfa-pretty
-#        - application/vnd.fastscore.model-python
-#        - application/vnd.fastscore.model-python2
-#        - application/vnd.fastscore.model-python3
-#        - application/vnd.fastscore.model-r
-#        - application/vnd.fastscore.model-c
-#        - application/vnd.fastscore.model-java
-#        - application/vnd.fastscore.model-scala
-#        - application/vnd.fastscore.model-erlang
-#        ## OBSOLETE - DO NOT USE
-#        - application/vnd.pfa+json
-#        - application/json
-#        - application/vnd.ppfa
-#        - application/x-yaml
-#        - application/x-r
-#        - application/x-python
-#        - application/x-python2
-#        - application/x-python3
       responses:
         201: { description: The model successfully added }
         204: { description: The model successfully updated }
@@ -919,23 +884,6 @@ paths:
       tags:
         - Engine
       operationId: model_load
-#      consumes:
-#        ## A model with attachments
-#        - multipart/mixed
-#        - multipart/form-data
-#        ## A model without attachments
-#        - application/vnd.fastscore.model-pfa+json
-#        - application/vnd.fastscore.model-pfa-json
-#        - application/vnd.fastscore.model-pfa-yaml
-#        - application/vnd.fastscore.model-pfa-pretty
-#        - application/vnd.fastscore.model-python
-#        - application/vnd.fastscore.model-python2
-#        - application/vnd.fastscore.model-python3
-#        - application/vnd.fastscore.model-r
-#        - application/vnd.fastscore.model-c
-#        - application/vnd.fastscore.model-java
-#        - application/vnd.fastscore.model-scala
-#        - application/vnd.fastscore.model-erlang
 
 ## The body of the request may contain the source code of the model or a model
 ## and its attachments. An attachment can be inline or externalized.
