@@ -65,7 +65,7 @@ def chop_path(path):
         return path[len(prefix):]
     else:
         return path
-    
+
 if __name__ == "__main__":
     main()
 
