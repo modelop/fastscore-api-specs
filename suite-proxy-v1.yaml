@@ -1156,6 +1156,10 @@ paths:
             type: string
             format: binary
           required: true
+        - name: preinstall
+          description: preinstall all libs
+          in: query
+          type: boolean
         - name: Content-Type
           description: model MIME type
           type: string
