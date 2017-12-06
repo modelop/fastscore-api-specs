@@ -11,4 +11,3 @@ validate:
 
 split: $(SWAGGER)
 	./split_spec.py suite-proxy-v1.yaml
-
