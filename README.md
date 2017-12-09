@@ -13,3 +13,12 @@ engine.yaml from suite-proxy.yaml.
 # How to validate
 
 Run 'make validate' before committing changes.
+
+# How to split API
+
+Sometimes it is more convenient to have a separate Swagger spec for each of the
+service type. Use split_spec.py to create/update these specs.
+```
+python split_spec.py suite-proxy-v1.yaml
+```
+
