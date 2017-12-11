@@ -20,6 +20,7 @@ def main():
 
     for tag in KNOWN_TAGS:
         spec = copy.deepcopy(suite_spec)
+        del spec['basePath']
         filter_spec(spec, tag)
         explode_refs(spec)
         spec_file = "{}.swagger.json".format(tag)
@@ -68,4 +69,3 @@ def chop_path(path):
 
 if __name__ == "__main__":
     main()
-
