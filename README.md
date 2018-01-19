@@ -7,18 +7,17 @@ OpenAPI specifications for the following FastScore microservices:
 * Model Manage (model-manage.yaml)
 * Engine (engine.yaml)
 
-TODO: create a script to extract connect.yaml, model-manage.yaml, and
-engine.yaml from suite-proxy.yaml.
-
 # How to validate
 
 Run 'make validate' before committing changes.
 
-# How to split API
+# How to sync readme.io API reference
 
-Sometimes it is more convenient to have a separate Swagger spec for each of the
-service type. Use split_spec.py to create/update these specs.
-```
-python split_spec.py suite-proxy-v1.yaml
-```
+Run 'make s3-sync'.
+
+This splits the master (proxy) API spec into 3 separate specifications and
+uploads them to S3 bucket.
+
+Go to the readme.io dashboard > Reference Docs and click 'resync' for each API
+in the list.
 
