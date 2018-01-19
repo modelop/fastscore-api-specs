@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: FastScore API (proxy)
-  version: '1.6'
+  version: '1.6.1'
 schemes:
   - https
 basePath: /api/1/service

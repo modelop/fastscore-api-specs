@@ -29,7 +29,7 @@ def main():
             print "{} written".format(spec_file)
 
 def filter_spec(spec, tag):
-    spec['info']['title'] = "FastScore {} API".format(tag)
+    spec['info']['title'] = tag_to_title(tag)
     paths = spec['paths']
     for path in paths.keys():
         ops = paths[path]
@@ -66,6 +66,12 @@ def chop_path(path):
         return path[len(prefix):]
     else:
         return path
+
+def tag_to_title(tag):
+    if tag == "ModelManage":
+        return "Model Manage API"
+    else:
+        return "{} API".format(tag)
 
 if __name__ == "__main__":
     main()
